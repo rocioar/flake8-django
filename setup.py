@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name='flake8-django',
-    license='MIT',
+    license='GPL',
     version='0.1',
     description='Plugin to catch bad style specific to Django Projects',
     author='Rocio Aramberri Schegel',
