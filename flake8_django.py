@@ -24,18 +24,14 @@ class DjangoStyleFinder(ast.NodeVisitor):
 
     def visit_Call(self, node):
         """
-        blank=True is not recommended to be used in BooleanField.
+        blank=True is not recommended to be used in fields specified in NOT_BLANK_TRUE_FIELDS.
 
-        null=True is not recommended to be used in CharField, TextField, SlugField,
-        EmailField, CommaSeparatedInteger, Field, UUIDField, ImageField, FileField,
-        BooleanField.
+        null=True is not recommended to be used in fields specified in NOT_NULL_TRUE_FIELDS
         """
         if not(isinstance(node.func, ast.Attribute)):
             return
 
         call = node.func.attr
-        # Check that BooleanField can't have blank=True
-        # Check that CharField, ImageField, BooleanField, and FileField can't have null=True
         if not(call in NOT_NULL_TRUE_FIELDS or call in NOT_BLANK_TRUE_FIELDS):
             return
 
