@@ -6,7 +6,11 @@ A flake8 plugin for Django projects.
 
 ## Installation
 
-To be added
+Install from pip with:
+
+```
+$ pip install flake8-django
+```
 
 ## List of warnings
 
