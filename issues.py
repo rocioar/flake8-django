@@ -17,3 +17,8 @@ DJ02 = partial(
     code='DJ02',
     message='{code} blank=True not recommended to be used in {field} use NullBooleanField instead'
 )
+DJ03 = partial(
+    Issue,
+    code='DJ03',
+    message='{code} not recommended to use dashes in url name, use underscore instead'
+)

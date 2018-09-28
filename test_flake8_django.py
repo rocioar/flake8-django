@@ -26,3 +26,8 @@ def test_not_blank_fields(field_type):
 def test_booleanfield_blank_and_null():
     code = "field = models.BooleanField(blank=True, null=True)"
     assert len(run_check(code)) == 2
+
+
+def test_url_name_with_dash():
+    code = "url(name='test-1')"
+    assert len(run_check(code) == 1)
