@@ -3,7 +3,7 @@ import ast
 from issues import DJ01, DJ02, DJ03
 
 
-__version__ = '0.1'
+__version__ = '0.0.1'
 
 NOT_NULL_TRUE_FIELDS = [
     'CharField', 'TextField', 'SlugField', 'EmailField', 'Field',

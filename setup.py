@@ -1,11 +1,15 @@
 import setuptools
 
+with open("README.md") as readme_file:
+    long_description = readme_file.read()
 
 setuptools.setup(
     name='flake8-django',
     license='GPL',
-    version='0.1',
+    version='0.0.1',
     description='Plugin to catch bad style specific to Django Projects',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     author='Rocio Aramberri Schegel',
     author_email='rocioaramberri@schegel.net',
     url='http://github.com/rocioar/flake8-django',
