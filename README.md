@@ -1,5 +1,7 @@
 # flake8-django
 
+[![Build Status](https://travis-ci.com/rocioar/flake8-django.svg?branch=master)](https://travis-ci.com/rocioar/flake8-django)
+
 A flake8 plugin for Django projects.
 
 ## Installation
