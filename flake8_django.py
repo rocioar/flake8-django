@@ -1,22 +1,33 @@
 import ast
+from collections import namedtuple
+from functools import partial
 
 __version__ = '0.1'
 
 
 NOT_NULL_TRUE_FIELDS = [
-    'CharField', 'TextField', 'SlugField', 'EmailField',
-    'CommaSeparatedInteger', 'Field', 'UUIDField', 'ImageField',
-    'FileField', 'BooleanField'
+    'CharField', 'TextField', 'SlugField', 'EmailField', 'Field',
+    'UUIDField', 'ImageField', 'FileField', 'BooleanField'
 ]
 
 NOT_BLANK_TRUE_FIELDS = ['BooleanField']
 
+Error = namedtuple('Error', ['code', 'lineno', 'col', 'message', 'parameters'])
+DJ01 = partial(
+    Error,
+    code='DJ01',
+    message='{code} null=True not recommended to be used in {field}'
+)
+DJ02 = partial(
+    Error,
+    code='DJ02',
+    message='{code} blank=True not recommended to be used in {field} use NullBooleanField instead'
+)
 
 class DjangoStyleFinder(ast.NodeVisitor):
     """
+    Visit the node, and return issues.
     """
-    DJ01 = 'DJ01 null=True not recommended to be used in {}'
-    DJ02 = 'DJ02 blank=True not recommended to be used in {}'
 
     def __init__(self, *args, **kwargs):
         super(DjangoStyleFinder, self).__init__(*args, **kwargs)
@@ -37,11 +48,21 @@ class DjangoStyleFinder(ast.NodeVisitor):
 
         for keyword in node.keywords:
             if keyword.arg == 'null' and keyword.value.id == 'True' and call in NOT_NULL_TRUE_FIELDS:
-                issue = ((node.lineno, node.col_offset), self.DJ01.format(call))
-                self.issues.append(issue)
+                self.issues.append(
+                    DJ01(
+                        lineno=node.lineno,
+                        col=node.col_offset,
+                        parameters={'field': call}
+                    )
+                )
             if keyword.arg == 'blank' and keyword.value.id == 'True' and call in NOT_BLANK_TRUE_FIELDS:
-                issue = ((node.lineno, node.col_offset), self.DJ02.format(call))
-                self.issues.append(issue)
+                self.issues.append(
+                    DJ02(
+                        lineno=node.lineno,
+                        col=node.col_offset,
+                        parameters={'field': call}
+                    )
+                )
 
 
 class DjangoStyleChecker():
@@ -60,5 +81,5 @@ class DjangoStyleChecker():
         parser = DjangoStyleFinder()
         parser.visit(self.tree)
 
-        for (lineno, col), message in parser.issues:
-            yield (lineno, col, message, DjangoStyleChecker)
+        for code, lineno, col, message, parameters in parser.issues:
+            yield (lineno, col, message.format(code=code, **parameters), DjangoStyleChecker)
