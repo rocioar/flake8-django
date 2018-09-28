@@ -1,9 +1,9 @@
 import ast
-from collections import namedtuple
-from functools import partial
+
+from issues import DJ01, DJ02
+
 
 __version__ = '0.1'
-
 
 NOT_NULL_TRUE_FIELDS = [
     'CharField', 'TextField', 'SlugField', 'EmailField', 'Field',
@@ -12,17 +12,6 @@ NOT_NULL_TRUE_FIELDS = [
 
 NOT_BLANK_TRUE_FIELDS = ['BooleanField']
 
-Error = namedtuple('Error', ['code', 'lineno', 'col', 'message', 'parameters'])
-DJ01 = partial(
-    Error,
-    code='DJ01',
-    message='{code} null=True not recommended to be used in {field}'
-)
-DJ02 = partial(
-    Error,
-    code='DJ02',
-    message='{code} blank=True not recommended to be used in {field} use NullBooleanField instead'
-)
 
 class DjangoStyleFinder(ast.NodeVisitor):
     """
