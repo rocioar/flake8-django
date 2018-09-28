@@ -26,7 +26,9 @@ class DjangoStyleFinder(ast.NodeVisitor):
             return
 
         for keyword in node.keywords:
-            if keyword.arg == 'null' and keyword.value.id == 'True' and call in NOT_NULL_TRUE_FIELDS:
+            value = keyword.value.value
+
+            if call in NOT_NULL_TRUE_FIELDS and keyword.arg == 'null' and value == True:
                 self.issues.append(
                     DJ01(
                         lineno=node.lineno,
@@ -34,7 +36,7 @@ class DjangoStyleFinder(ast.NodeVisitor):
                         parameters={'field': call}
                     )
                 )
-            if keyword.arg == 'blank' and keyword.value.id == 'True' and call in NOT_BLANK_TRUE_FIELDS:
+            if call in NOT_BLANK_TRUE_FIELDS and keyword.arg == 'blank' and value == True:
                 self.issues.append(
                     DJ02(
                         lineno=node.lineno,
