@@ -1,6 +1,6 @@
 import ast
 
-from issues import DJ01, DJ02
+from issues import DJ01, DJ02, DJ03
 
 
 __version__ = '0.1'
@@ -9,7 +9,6 @@ NOT_NULL_TRUE_FIELDS = [
     'CharField', 'TextField', 'SlugField', 'EmailField', 'Field',
     'UUIDField', 'ImageField', 'FileField', 'BooleanField'
 ]
-
 NOT_BLANK_TRUE_FIELDS = ['BooleanField']
 
 
@@ -22,16 +21,7 @@ class DjangoStyleFinder(ast.NodeVisitor):
         super(DjangoStyleFinder, self).__init__(*args, **kwargs)
         self.issues = []
 
-    def visit_Call(self, node):
-        """
-        blank=True is not recommended to be used in fields specified in NOT_BLANK_TRUE_FIELDS.
-
-        null=True is not recommended to be used in fields specified in NOT_NULL_TRUE_FIELDS
-        """
-        if not(isinstance(node.func, ast.Attribute)):
-            return
-
-        call = node.func.attr
+    def capture_field_issues(self, node, call):
         if not(call in NOT_NULL_TRUE_FIELDS or call in NOT_BLANK_TRUE_FIELDS):
             return
 
@@ -52,6 +42,34 @@ class DjangoStyleFinder(ast.NodeVisitor):
                         parameters={'field': call}
                     )
                 )
+
+    def capture_url_issues(self, node):
+        for keyword in node.keywords:
+            if keyword.arg == 'name' and '-' in keyword.value.s:
+                self.issues.append(
+                    DJ03(
+                        lineno=node.lineno,
+                        col=node.col_offset,
+                        parameters={}
+                    )
+                )
+                return
+
+    def visit_Call(self, node):
+        """
+        blank=True is not recommended to be used in fields specified in NOT_BLANK_TRUE_FIELDS.
+
+        null=True is not recommended to be used in fields specified in NOT_NULL_TRUE_FIELDS
+        """
+        if isinstance(node.func, ast.Attribute):
+            call = node.func.attr
+        else:
+            call = node.func.id
+
+        if call == 'url':
+            self.capture_url_issues(node)
+
+        self.capture_field_issues(node, call)
 
 
 class DjangoStyleChecker():
