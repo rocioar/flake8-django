@@ -16,3 +16,7 @@ To be added
 ## Licence
 
 GPL
+
+## Thanks
+
+[@stummjr](https://github.com/stummjr) for teaching me AST, and what I could do with it. His [blog](https://dunderdoc.wordpress.com/) is cool.
