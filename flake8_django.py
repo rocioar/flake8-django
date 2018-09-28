@@ -22,6 +22,9 @@ class DjangoStyleFinder(ast.NodeVisitor):
         self.issues = []
 
     def capture_field_issues(self, node, call):
+        if not(call in NOT_NULL_TRUE_FIELDS or call in NOT_BLANK_TRUE_FIELDS):
+            return
+
         for keyword in node.keywords:
             if keyword.arg == 'null' and keyword.value.id == 'True' and call in NOT_NULL_TRUE_FIELDS:
                 self.issues.append(
@@ -66,8 +69,7 @@ class DjangoStyleFinder(ast.NodeVisitor):
         if call == 'url':
             self.capture_url_issues(node)
 
-        if call in NOT_NULL_TRUE_FIELDS or call in NOT_BLANK_TRUE_FIELDS:
-            self.capture_field_issues(node, call)
+        self.capture_field_issues(node, call)
 
 
 class DjangoStyleChecker():
