@@ -30,4 +30,4 @@ def test_booleanfield_blank_and_null():
 
 def test_url_name_with_dash():
     code = "url(name='test-1')"
-    assert len(run_check(code) == 1)
+    assert len(run_check(code)) == 1
