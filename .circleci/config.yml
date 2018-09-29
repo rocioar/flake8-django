@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: themattrix/tox
+    working_directory: ~/flake8-django
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install tox flake8
+      - run:
+          name: run tests
+          command: |
+            . venv/bin/activate
+            tox
+      - run:
+          name: run flake8
+          command: |
+              . venv/bin/activate
+              git diff HEAD $(git merge-base HEAD origin/master)  | flake8 --diff
