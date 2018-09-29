@@ -1,6 +1,6 @@
 # flake8-django
 
-[![Build Status](https://travis-ci.com/rocioar/flake8-django.svg?branch=master)](https://travis-ci.com/rocioar/flake8-django)
+[![CircleCI](https://circleci.com/gh/rocioar/flake8-django/tree/master.svg?style=svg)](https://circleci.com/gh/rocioar/flake8-django/tree/master)
 
 A flake8 plugin for Django projects.
 
