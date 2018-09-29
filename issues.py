@@ -22,3 +22,8 @@ DJ03 = partial(
     code='DJ03',
     message='{code} not recommended to use dashes in url name, use underscore instead'
 )
+DJ04 = partial(
+    Issue,
+    code='DJ04',
+    message='{code} Use of locals() is not recommended in render function, use explicit arguments'
+)

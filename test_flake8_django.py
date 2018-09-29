@@ -31,3 +31,8 @@ def test_booleanfield_blank_and_null():
 def test_url_name_with_dash():
     code = "url(name='test-1')"
     assert len(run_check(code)) == 1
+
+
+def test_render_doesnt_use_locals():
+    code="render(request, 'template.html', locals())"
+    assert len(run_check(code)) == 1
