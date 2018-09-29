@@ -65,8 +65,10 @@ class DjangoStyleFinder(ast.NodeVisitor):
         """
         if isinstance(node.func, ast.Attribute):
             call = node.func.attr
-        else:
+        elif isinstance(node.func, ast.Name)
             call = node.func.id
+        else:
+            return
 
         if call == 'url':
             self.capture_url_issues(node)
