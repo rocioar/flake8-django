@@ -26,9 +26,7 @@ class DjangoStyleFinder(ast.NodeVisitor):
             return
 
         for keyword in node.keywords:
-            value = keyword.value.value
-
-            if call in NOT_NULL_TRUE_FIELDS and keyword.arg == 'null' and value is True:
+            if call in NOT_NULL_TRUE_FIELDS and keyword.arg == 'null' and keyword.value.value is True:
                 self.issues.append(
                     DJ01(
                         lineno=node.lineno,
@@ -36,7 +34,7 @@ class DjangoStyleFinder(ast.NodeVisitor):
                         parameters={'field': call}
                     )
                 )
-            if call in NOT_BLANK_TRUE_FIELDS and keyword.arg == 'blank' and value is True:
+            if call in NOT_BLANK_TRUE_FIELDS and keyword.arg == 'blank' and keyword.value.value is True:
                 self.issues.append(
                     DJ02(
                         lineno=node.lineno,
@@ -65,7 +63,9 @@ class DjangoStyleFinder(ast.NodeVisitor):
         found_namespace = False
 
         for arg in node.args:
-            if isinstance(arg, ast.Call) and arg.func.id == 'include':
+            if not(isinstance(arg, ast.Call) and isinstance(arg.func, ast.Name)):
+                continue
+            if arg.func.id == 'include':
                 has_include = True
                 for keyword in arg.keywords:
                     if keyword.arg == 'namespace':
@@ -103,9 +103,10 @@ class DjangoStyleFinder(ast.NodeVisitor):
         """
         if isinstance(node.func, ast.Attribute):
             call = node.func.attr
-        else:
+        elif isinstance(node.func, ast.Name):
             call = node.func.id
-
+        else:
+            return
         if call == 'url':
             self.capture_url_issues(node)
             self.capture_url_missing_namespace(node)
