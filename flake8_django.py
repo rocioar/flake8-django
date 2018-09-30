@@ -1,6 +1,6 @@
 import ast
 
-from issues import DJ01, DJ02, DJ03
+from issues import DJ01, DJ02, DJ03, DJ04
 
 
 __version__ = '0.0.1'
@@ -57,6 +57,20 @@ class DjangoStyleFinder(ast.NodeVisitor):
                 )
                 return
 
+    def capture_use_of_locals(self, node):
+        """
+        Captures the use of locals() in render function.
+        """
+        for arg in node.args:
+            if isinstance(arg, ast.Call) and arg.func.id == 'locals':
+                self.issues.append(
+                    DJ04(
+                        lineno=node.lineno,
+                        col=node.col_offset,
+                        parameters={}
+                    )
+                )
+
     def visit_Call(self, node):
         """
         blank=True is not recommended to be used in fields specified in NOT_BLANK_TRUE_FIELDS.
@@ -70,6 +84,9 @@ class DjangoStyleFinder(ast.NodeVisitor):
 
         if call == 'url':
             self.capture_url_issues(node)
+
+        if call == 'render':
+            self.capture_use_of_locals(node)
 
         self.capture_field_issues(node, call)
 
