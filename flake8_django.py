@@ -95,18 +95,22 @@ class DjangoStyleFinder(ast.NodeVisitor):
                     )
                 )
 
+    def get_call_name(self, node):
+        call = ''
+        if isinstance(node.func, ast.Attribute):
+            call = node.func.attr
+        elif isinstance(node.func, ast.Name):
+            call = node.func.id
+        return call
+
     def visit_Call(self, node):
         """
         blank=True is not recommended to be used in fields specified in NOT_BLANK_TRUE_FIELDS.
 
         null=True is not recommended to be used in fields specified in NOT_NULL_TRUE_FIELDS
         """
-        if isinstance(node.func, ast.Attribute):
-            call = node.func.attr
-        elif isinstance(node.func, ast.Name):
-            call = node.func.id
-        else:
-            return
+        call = self.get_call_name(node)
+        
         if call == 'url':
             self.capture_url_issues(node)
             self.capture_url_missing_namespace(node)
