@@ -51,7 +51,7 @@ def test_url_name_with_dash_fails():
 
 
 def test_url_name_with_dash_sucess():
-    code = "url(name='test_1')"
+    code = "url('/test/', View.as_view(), name='test_1')"
     assert len(run_check(code)) == 0
 
 
@@ -67,7 +67,7 @@ def test_render_doesnt_use_locals_success():
 
 
 def test_url_include_without_namespace_fails():
-    code = "url('/test/', include())"
+    code = "url('/test/', View.as_view(), include())"
     assert len(run_check(code)) == 1
     assert 'DJ05' in run_check(code)[0][2]
 
