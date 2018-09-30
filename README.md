@@ -12,6 +12,20 @@ Install from pip with:
 $ pip install flake8-django
 ```
 
+## Testing
+
+flake8-django uses pytest for tests. To run them use:
+
+```
+$ pytest
+````
+
+Run coverage report using:
+
+```
+$ pytest --cov=.
+```
+
 ## List of warnings
 
 | Warning | Description |
