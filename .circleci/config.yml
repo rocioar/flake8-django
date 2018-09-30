@@ -11,12 +11,17 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install tox flake8
+            pip install tox flake8 pytest-cov
       - run:
           name: run tests
           command: |
             . venv/bin/activate
             tox
+      - run:
+          name: run coverage
+          command: |
+            . venv/bin/activate
+            py.test --cov=. --cov-fail-under=100
       - run:
           name: run flake8
           command: |
