@@ -20,6 +20,7 @@ $ pip install flake8-django
 | `DJ02` | Using `blank=True` is not recommended on `BooleanField`, use `NullBooleanField` instead |
 | `DJ03` | Using dashes in url names is discouraged, use underscores instead |
 | `DJ04` | Using locals() in render function is not recommended, use explicit arguments |
+| `DJ05` | URLs include() should set a namespace |
 
 ## Licence
 

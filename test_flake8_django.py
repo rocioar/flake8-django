@@ -34,5 +34,16 @@ def test_url_name_with_dash():
 
 
 def test_render_doesnt_use_locals():
-    code="render(request, 'template.html', locals())"
+    code = "render(request, 'template.html', locals())"
     assert len(run_check(code)) == 1
+
+
+def test_url_include_without_namespace_fails():
+    code = "url('/test/', include())"
+    assert len(run_check(code)) == 1
+    assert 'DJ05' in run_check(code)[0][2]
+
+
+def test_url_include_with_namespace_success():
+    code = "url('/test/', include(namespace='test'))"
+    assert len(run_check(code)) == 0

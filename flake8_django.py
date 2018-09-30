@@ -1,6 +1,6 @@
 import ast
 
-from issues import DJ01, DJ02, DJ03, DJ04
+from issues import DJ01, DJ02, DJ03, DJ04, DJ05
 
 
 __version__ = '0.0.1'
@@ -57,6 +57,30 @@ class DjangoStyleFinder(ast.NodeVisitor):
                 )
                 return
 
+    def capture_url_missing_namespace(self, node):
+        """
+        Capture missing namespace in url include.
+        """
+        has_include = False
+        found_namespace = False
+
+        for arg in node.args:
+            if isinstance(arg, ast.Call) and arg.func.id == 'include':
+                has_include = True
+                for keyword in arg.keywords:
+                    if keyword.arg == 'namespace':
+                        found_namespace = True
+                        return
+
+        if has_include and not found_namespace:
+            self.issues.append(
+                DJ05(
+                    lineno=node.lineno,
+                    col=node.col_offset,
+                    parameters={}
+                )
+            )
+
     def capture_use_of_locals(self, node):
         """
         Captures the use of locals() in render function.
@@ -84,6 +108,7 @@ class DjangoStyleFinder(ast.NodeVisitor):
 
         if call == 'url':
             self.capture_url_issues(node)
+            self.capture_url_missing_namespace(node)
 
         if call == 'render':
             self.capture_use_of_locals(node)
