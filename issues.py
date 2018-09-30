@@ -27,3 +27,8 @@ DJ04 = partial(
     code='DJ04',
     message='{code} Use of locals() is not recommended in render function, use explicit arguments'
 )
+DJ05 = partial(
+    Issue,
+    code='DJ05',
+    message='{code} Missing namespace in urls include()'
+)
