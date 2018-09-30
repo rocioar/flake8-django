@@ -3,7 +3,6 @@ jobs:
   build:
     docker:
       - image: themattrix/tox
-    working_directory: ~/flake8-django
     steps:
       - checkout
       - run:
@@ -21,6 +20,7 @@ jobs:
           name: run coverage
           command: |
             . venv/bin/activate
+            pip install -e .
             py.test --cov=. --cov-fail-under=100
       - run:
           name: run flake8
