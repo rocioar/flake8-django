@@ -15,46 +15,48 @@ class DJ05(Issue):
 
 
 class URLChecker(Checker):
+    """
+    Checks for bad practices on url definition.
+    """
+    def __init__(self):
+        super(URLChecker, self).__init__()
+        self.checks = [self.capture_dash_in_url_name, self.capture_url_missing_namespace]
 
     def run(self, node):
         if self.get_call_name(node) != 'url':
             return
         issues = []
-        self.capture_url_issues(node, issues)
-        self.capture_url_missing_namespace(node, issues)
+        for check in self.checks:
+            issue = check(node)
+            if issue:
+                issues.append(issue)
         return issues
 
-    def capture_url_issues(self, node, issues):
+    def capture_dash_in_url_name(self, node):
+        """
+        Capture dash in URL name
+        """
         for keyword in node.keywords:
             if keyword.arg == 'name' and '-' in keyword.value.s:
-                return issues.append(
-                    DJ03(
-                        lineno=node.lineno,
-                        col=node.col_offset,
-                    )
-                )
-
-    def capture_url_missing_namespace(self, node, issues):
-        """
-        Capture missing namespace in url include.
-        """
-        has_include = False
-        found_namespace = False
-
-        for arg in node.args:
-            if not(isinstance(arg, ast.Call) and isinstance(arg.func, ast.Name)):
-                continue
-            if arg.func.id == 'include':
-                has_include = True
-                for keyword in arg.keywords:
-                    if keyword.arg == 'namespace':
-                        found_namespace = True
-                        return
-
-        if has_include and not found_namespace:
-            return issues.append(
-                DJ05(
+                return DJ03(
                     lineno=node.lineno,
                     col=node.col_offset,
                 )
+
+    def capture_url_missing_namespace(self, node):
+        """
+        Capture missing namespace in url include.
+        """
+        for arg in node.args:
+            if not(isinstance(arg, ast.Call) and isinstance(arg.func, ast.Name)):
+                continue
+            if arg.func.id != 'include':
+                continue
+            for keyword in arg.keywords:
+                if keyword.arg == 'namespace':
+                    return
+
+            return DJ05(
+                lineno=node.lineno,
+                col=node.col_offset,
             )
