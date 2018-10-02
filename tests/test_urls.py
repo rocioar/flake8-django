@@ -6,7 +6,7 @@ from .utils import run_check
 def test_url_name_with_dash_fails():
     code = "url(name='test-1')"
     assert len(run_check(code)) == 1
-    assert 'DJ03' in run_check(code)[0][2]
+    assert 'DJ04' in run_check(code)[0][2]
 
 
 def test_url_name_with_underscore_sucess():

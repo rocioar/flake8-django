@@ -32,8 +32,8 @@ $ pytest --cov=.
 | --- | --- |
 | `DJ01` | Using `null=True` is not recommended for some of the Django ORM fields. E.g. `CharField`, `EmailField`, `ImageField`, `FileField`, `BooleanField`, `UUIDField`, `SlugField`, `TextField` |
 | `DJ02` | Using `blank=True` is not recommended on `BooleanField`, use `NullBooleanField` instead |
-| `DJ03` | Using dashes in url names is discouraged, use underscores instead |
-| `DJ04` | Using locals() in render function is not recommended, use explicit arguments |
+| `DJ03` | Using locals() in render function is not recommended, use explicit arguments |
+| `DJ04` | Using dashes in url names is discouraged, use underscores instead |
 | `DJ05` | URLs include() should set a namespace |
 
 ## Licence

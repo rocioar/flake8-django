@@ -4,8 +4,8 @@ from .checker import Checker
 from .issue import Issue
 
 
-class DJ04(Issue):
-    code = 'DJ04'
+class DJ03(Issue):
+    code = 'DJ03'
     description = 'Use of locals() is not recommended in render function, use explicit arguments'
 
 
@@ -21,7 +21,7 @@ class RenderChecker(Checker):
         for arg in node.args:
             if isinstance(arg, ast.Call) and arg.func.id == 'locals':
                 issues.append(
-                    DJ04(
+                    DJ03(
                         lineno=node.lineno,
                         col=node.col_offset,
                     )

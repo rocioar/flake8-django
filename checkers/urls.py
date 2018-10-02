@@ -4,8 +4,8 @@ from .checker import Checker
 from .issue import Issue
 
 
-class DJ03(Issue):
-    code = 'DJ03'
+class DJ04(Issue):
+    code = 'DJ04'
     description = 'not recommended to use dashes in url name, use underscore instead'
 
 
@@ -38,7 +38,7 @@ class URLChecker(Checker):
         """
         for keyword in node.keywords:
             if keyword.arg == 'name' and '-' in keyword.value.s:
-                return DJ03(
+                return DJ04(
                     lineno=node.lineno,
                     col=node.col_offset,
                 )
