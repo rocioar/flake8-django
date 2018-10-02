@@ -2,7 +2,8 @@ import ast
 
 import pytest
 
-from flake8_django import DjangoStyleChecker, NOT_BLANK_TRUE_FIELDS, NOT_NULL_TRUE_FIELDS
+from flake8_django import DjangoStyleChecker
+from checkers.model_fields import NOT_BLANK_TRUE_FIELDS, NOT_NULL_TRUE_FIELDS
 
 
 def run_check(code):

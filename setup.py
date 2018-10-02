@@ -13,7 +13,7 @@ setuptools.setup(
     author='Rocio Aramberri Schegel',
     author_email='rocioaramberri@schegel.net',
     url='http://github.com/rocioar/flake8-django',
-    py_modules=['flake8_django', 'issues'],
+    py_modules=['flake8_django', 'issues', 'checkers'],
     entry_points={
         'flake8.extension': [
             'DJ0 = flake8_django:DjangoStyleChecker',
