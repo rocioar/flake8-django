@@ -11,3 +11,10 @@ def test_model_form_doesnt_set_exclude_fails():
 def test_model_form_doesnt_set_exclude_success():
     code = load_fixture_file('model_form_fields.py')
     assert len(run_check(code)) == 0
+
+
+def test_model_form_doesnt_set_fields_dunder_all():
+    code = load_fixture_file('model_form_fields_all.py')
+    assert len(run_check(code)) == 2
+    assert 'DJ07' in run_check(code)[0][2]
+    assert 'DJ07' in run_check(code)[1][2]
