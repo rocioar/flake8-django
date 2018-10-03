@@ -8,7 +8,7 @@ with open('README.md', 'r') as f:
 setuptools.setup(
     name='flake8-django',
     license='GPL',
-    version='0.0.2',
+    version='0.0.3',
     description='Plugin to catch bad style specific to Django Projects',
     long_description=long_description,
     long_description_content_type='text/markdown',
