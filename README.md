@@ -38,6 +38,7 @@ $ pytest --cov=.
 | `DJ04` | Using dashes in url names is discouraged, use underscores instead |
 | `DJ05` | URLs include() should set a namespace |
 | `DJ06` | ModelForm should not set exclude, instead it should use fields, which is an explicit list of all the fields that should be included in the form |
+| `DJ07` | ModelForm.Meta should not set fields to '__all__'|
 
 ## Licence
 
