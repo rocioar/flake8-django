@@ -55,6 +55,6 @@ class ModelFormChecker(Checker):
                         return [
                             DJ06(
                                 lineno=node.lineno,
-                                col=node.col_offset
+                                col=node.col_offset,
                             )
                         ]
