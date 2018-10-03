@@ -13,3 +13,11 @@ class User2(ModelForm):
     class Meta:
         model = User2
         exclude = ('name',)
+
+class User3(ModelForm):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+
+    class Meta:
+        model = User2
+        fields == '__all__'

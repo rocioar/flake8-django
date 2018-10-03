@@ -9,6 +9,11 @@ class DJ06(Issue):
     description = 'ModelForm.Meta should not set exclude, set fields instead'
 
 
+class DJ07(Issue):
+    code = 'DJ07'
+    description = "ModelForm.Meta should not set fields to '__all__'"
+
+
 class ModelFormChecker(Checker):
 
     def checker_applies(self, node):
@@ -30,6 +35,15 @@ class ModelFormChecker(Checker):
             base.value.id == 'models' and base.attr == 'ModelForm'
         )
 
+    def is_fields_string(self, element):
+        return (
+            isinstance(element, ast.Expr) and
+            isinstance(element.value, ast.Compare) and
+            isinstance(element.value.left, ast.Name) and
+            isinstance(element.value.comparators[0], ast.Str) and
+            element.value.left.id == 'fields' and element.value.comparators[0].s == '__all__'
+        )
+
     def run(self, node):
         """
         Captures the use of exclude in ModelForm Meta
@@ -42,6 +56,14 @@ class ModelFormChecker(Checker):
             if not isinstance(body, ast.ClassDef):
                 continue
             for element in body.body:
+                if self.is_fields_string(element):
+                    issues.append(
+                        DJ07(
+                            lineno=node.lineno,
+                            col=node.col_offset,
+                        )
+                    )
+                    continue
                 if not isinstance(element, ast.Assign):
                     continue
                 for target in element.targets:
@@ -49,7 +71,7 @@ class ModelFormChecker(Checker):
                         issues.append(
                             DJ06(
                                 lineno=node.lineno,
-                                col=node.col_offset
+                                col=node.col_offset,
                             )
                         )
-                        return issues
+        return issues
