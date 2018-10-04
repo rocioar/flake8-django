@@ -16,6 +16,12 @@ jobs:
           command: |
             . venv/bin/activate
             tox
+
+      - run:
+          name: run flake8
+          command: |
+              . venv/bin/activate
+              git diff HEAD $(git merge-base HEAD origin/master)  | flake8 --diff
       - run:
           name: run coverage
           command: |
@@ -23,7 +29,8 @@ jobs:
             pip install -e .
             py.test --cov=. --cov-fail-under=100
       - run:
-          name: run flake8
+          name: upload coverage report
           command: |
-              . venv/bin/activate
-              git diff HEAD $(git merge-base HEAD origin/master)  | flake8 --diff
+            . venv/bin/activate
+            pip install codecov
+            codecov
