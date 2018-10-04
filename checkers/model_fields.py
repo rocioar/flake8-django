@@ -3,8 +3,9 @@ from .issue import Issue
 
 
 NOT_NULL_TRUE_FIELDS = [
-    'CharField', 'TextField', 'SlugField', 'EmailField', 'Field',
-    'UUIDField', 'ImageField', 'FileField', 'BooleanField'
+    'CharField', 'TextField', 'SlugField',
+    'EmailField', 'UUIDField', 'ImageField',
+    'FileField', 'FilePathField', 'URLField'
 ]
 NOT_BLANK_TRUE_FIELDS = ['BooleanField']
 
@@ -16,7 +17,7 @@ class DJ01(Issue):
 
 class DJ02(Issue):
     code = 'DJ02'
-    description = 'blank=True not recommended to be used in {field} use NullBooleanField instead'
+    description = 'blank=True not recommended to be used in {field}'
 
 
 class ModelFieldChecker(Checker):
