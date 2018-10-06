@@ -8,6 +8,7 @@ dev
 
 - Added `DJ06` check for ModelForm, should not use exclude
 - Added `DJ07` check for `ModelForm.META`, should not set fields to `'__all__'`
+- Added `DJ08` check for `__str__`, all models that inherits from django db models should set it
 
 0.0.3 (2018-10-03)
 ------------------
