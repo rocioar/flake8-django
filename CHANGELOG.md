@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+dev
+---
+
+**Improvements**
+
+- Added `DJ06` check for ModelForm, should not use exclude
+
 0.0.3 (2018-10-03)
 ------------------
 

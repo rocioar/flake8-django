@@ -1,6 +1,6 @@
 import ast
 
-from checkers import ModelFieldChecker, URLChecker, RenderChecker
+from checkers import ModelFieldChecker, ModelFormChecker, URLChecker, RenderChecker
 
 __version__ = '0.0.3'
 
@@ -9,21 +9,33 @@ class DjangoStyleFinder(ast.NodeVisitor):
     """
     Visit the node, and return issues.
     """
-    checkers = [
-        ModelFieldChecker(),
-        URLChecker(),
-        RenderChecker(),
-    ]
+    checkers = {
+        'Call': [
+            ModelFieldChecker(),
+            URLChecker(),
+            RenderChecker(),
+        ],
+        'ClassDef': [
+            ModelFormChecker(),
+        ]
+    }
 
     def __init__(self, *args, **kwargs):
         super(DjangoStyleFinder, self).__init__(*args, **kwargs)
         self.issues = []
 
-    def visit_Call(self, node):
-        for checker in self.checkers:
+    def capture_issues_visitor(self, visitor, node):
+        for checker in self.checkers[visitor]:
             issues = checker.run(node)
             if issues:
                 self.issues.extend(issues)
+        self.generic_visit(node)
+
+    def visit_Call(self, node):
+        self.capture_issues_visitor('Call', node)
+
+    def visit_ClassDef(self, node):
+        self.capture_issues_visitor('ClassDef', node)
 
 
 class DjangoStyleChecker(object):

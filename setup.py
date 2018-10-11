@@ -21,6 +21,7 @@ setuptools.setup(
         'checkers.checker',
         'checkers.issue',
         'checkers.model_fields',
+        'checkers.model_form',
         'checkers.render',
         'checkers.urls',
     ],
