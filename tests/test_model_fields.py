@@ -29,10 +29,3 @@ def test_not_blank_fields_fails(field_type):
 def test_not_blank_fields_sucess(field_type):
     code = "another_field = models.{}()".format(field_type)
     assert len(run_check(code)) == 0
-
-
-def test_booleanfield_blank_and_null_fails():
-    code = "field = models.BooleanField(blank=True, null=True)"
-    assert len(run_check(code)) == 2
-    assert 'DJ01' in run_check(code)[1][2]
-    assert 'DJ02' in run_check(code)[0][2]

@@ -6,7 +6,7 @@ from .issue import Issue
 
 class DJ06(Issue):
     code = 'DJ06'
-    description = 'ModelForm.Meta should not set exclude, set fields instead'
+    description = 'ModelForm.Meta should not set "exclude", set "fields" instead'
 
 
 class DJ07(Issue):
@@ -18,37 +18,44 @@ class ModelFormChecker(Checker):
 
     def checker_applies(self, node):
         for base in node.bases:
-            if self.is_model_form_attribute(base) or self.is_model_form_name(base):
+            is_model_form = self.is_model_form_attribute(base) or self.is_model_form_name(base)
+            if is_model_form:
                 return True
         return False
 
     def is_model_form_name(self, base):
+        """
+        Return True if class is defined as Form(ModelForm)
+        """
         return (
             isinstance(base, ast.Name) and
             base.id == 'ModelForm'
         )
 
     def is_model_form_attribute(self, base):
+        """
+        Return True if class is defined as Form(models.ModelForm)
+        """
         return (
             isinstance(base, ast.Attribute) and
             isinstance(base.value, ast.Name) and
             base.value.id == 'models' and base.attr == 'ModelForm'
         )
 
-    def is_fields_string(self, element):
+    def is_string_dunder_all(self, element):
+        """
+        Return True if element is ast.Str and equals "__all__"
+        """
         return (
-            isinstance(element, ast.Expr) and
-            isinstance(element.value, ast.Compare) and
-            isinstance(element.value.left, ast.Name) and
-            isinstance(element.value.comparators[0], ast.Str) and
-            element.value.left.id == 'fields' and element.value.comparators[0].s == '__all__'
+            isinstance(element.value, ast.Str) and
+            element.value.s == '__all__'
         )
 
     def run(self, node):
         """
         Captures the use of exclude in ModelForm Meta
         """
-        if not(self.checker_applies(node)):
+        if not self.checker_applies(node):
             return
 
         issues = []
@@ -56,22 +63,25 @@ class ModelFormChecker(Checker):
             if not isinstance(body, ast.ClassDef):
                 continue
             for element in body.body:
-                if self.is_fields_string(element):
-                    issues.append(
-                        DJ07(
-                            lineno=node.lineno,
-                            col=node.col_offset,
-                        )
-                    )
-                    continue
+                is_fields = False
                 if not isinstance(element, ast.Assign):
                     continue
                 for target in element.targets:
-                    if target.id == 'exclude':
+                    if target.id == 'fields':
+                        is_fields = True
+                    elif target.id == 'exclude':
                         issues.append(
                             DJ06(
                                 lineno=node.lineno,
                                 col=node.col_offset,
                             )
                         )
+
+                if is_fields and self.is_string_dunder_all(element):
+                    issues.append(
+                        DJ07(
+                            lineno=node.lineno,
+                            col=node.col_offset,
+                        )
+                    )
         return issues

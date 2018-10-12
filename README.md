@@ -1,6 +1,8 @@
 # flake8-django
 
-[![CircleCI](https://circleci.com/gh/rocioar/flake8-django/tree/master.svg?style=svg)](https://circleci.com/gh/rocioar/flake8-django/tree/master)
+[![CircleCI](https://circleci.com/gh/rocioar/flake8-django/tree/master.svg?style=shield)](https://circleci.com/gh/rocioar/flake8-django/tree/master)
+[![Codecov](https://codecov.io/gh/rocioar/flake8-django/branch/master/graph/badge.svg)](https://codecov.io/gh/rocioar/flake8-django)
+[![Downloads](https://pepy.tech/badge/flake8-django)](https://pepy.tech/project/flake8-django)
 
 A flake8 plugin for Django projects.
 
@@ -30,8 +32,8 @@ $ pytest --cov=.
 
 | Warning | Description |
 | --- | --- |
-| `DJ01` | Using `null=True` is not recommended for some of the Django ORM fields. E.g. `CharField`, `EmailField`, `ImageField`, `FileField`, `BooleanField`, `UUIDField`, `SlugField`, `TextField` |
-| `DJ02` | Using `blank=True` is not recommended on `BooleanField`, use `NullBooleanField` instead |
+| `DJ01` | Using `null=True` is not recommended for some of the Django ORM fields. E.g. `CharField`, `EmailField`, `ImageField`, `FileField`, `UUIDField`, `SlugField`, `TextField` |
+| `DJ02` | Using `blank=True` is not recommended on `BooleanField`|
 | `DJ03` | Using locals() in render function is not recommended, use explicit arguments |
 | `DJ04` | Using dashes in url names is discouraged, use underscores instead |
 | `DJ05` | URLs include() should set a namespace |
