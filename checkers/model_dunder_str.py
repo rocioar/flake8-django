@@ -9,7 +9,7 @@ class DJ08(Issue):
     description = '__str__ method should be present in all db models'
 
 
-class ModelDunderStr(Checker):
+class ModelDunderStrMissingChecker(Checker):
 
     def checker_applies(self, node):
         for base in node.bases:

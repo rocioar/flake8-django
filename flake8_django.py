@@ -1,6 +1,6 @@
 import ast
 
-from checkers import ModelDunderStr, ModelFieldChecker, ModelFormChecker, URLChecker, RenderChecker
+from checkers import ModelDunderStrMissingChecker, ModelFieldChecker, ModelFormChecker, URLChecker, RenderChecker
 
 __version__ = '0.0.3'
 
@@ -17,7 +17,7 @@ class DjangoStyleFinder(ast.NodeVisitor):
         ],
         'ClassDef': [
             ModelFormChecker(),
-            ModelDunderStr(),
+            ModelDunderStrMissingChecker(),
         ]
     }
 
