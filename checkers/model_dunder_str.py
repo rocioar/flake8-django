@@ -1,6 +1,6 @@
 import ast
 
-from .checker import Checker
+from .base_model_checker import BaseModelChecker
 from .issue import Issue
 
 
@@ -9,26 +9,14 @@ class DJ08(Issue):
     description = '__str__ method should be present in all db models'
 
 
-class ModelDunderStrMissingChecker(Checker):
+class ModelDunderStrMissingChecker(BaseModelChecker):
+    model_name_lookup = 'Model'
 
     def checker_applies(self, node):
         for base in node.bases:
-            if self.is_model_name(base) or self.is_models_attribute(base):
+            if self.is_model_name_lookup(base) or self.is_models_name_lookup_attribute(base):
                 return True
         return False
-
-    def is_model_name(self, base):
-        return (
-            isinstance(base, ast.Name) and
-            base.id == 'Model'
-        )
-
-    def is_models_attribute(self, base):
-        return (
-            isinstance(base, ast.Attribute) and
-            isinstance(base.value, ast.Name) and
-            base.value.id == 'models' and base.attr == 'Model'
-        )
 
     def is_dunder_str_method(self, element):
         return (

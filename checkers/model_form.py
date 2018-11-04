@@ -1,6 +1,6 @@
 import ast
 
-from .checker import Checker
+from .base_model_checker import BaseModelChecker
 from .issue import Issue
 
 
@@ -14,33 +14,15 @@ class DJ07(Issue):
     description = "ModelForm.Meta should not set fields to '__all__'"
 
 
-class ModelFormChecker(Checker):
+class ModelFormChecker(BaseModelChecker):
+    model_name_lookup = 'ModelForm'
 
     def checker_applies(self, node):
         for base in node.bases:
-            is_model_form = self.is_model_form_attribute(base) or self.is_model_form_name(base)
+            is_model_form = self.is_model_name_lookup(base) or self.is_models_name_lookup_attribute(base)
             if is_model_form:
                 return True
         return False
-
-    def is_model_form_name(self, base):
-        """
-        Return True if class is defined as Form(ModelForm)
-        """
-        return (
-            isinstance(base, ast.Name) and
-            base.id == 'ModelForm'
-        )
-
-    def is_model_form_attribute(self, base):
-        """
-        Return True if class is defined as Form(models.ModelForm)
-        """
-        return (
-            isinstance(base, ast.Attribute) and
-            isinstance(base.value, ast.Name) and
-            base.value.id == 'models' and base.attr == 'ModelForm'
-        )
 
     def is_string_dunder_all(self, element):
         """
