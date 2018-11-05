@@ -6,8 +6,9 @@ dev
 
 **Improvements**
 
-- Added `DJ06` check for ModelForm, should not use exclude
-- Added `DJ07` check for `ModelForm.META`, should not set fields to `'__all__'`
+- Added `DJ06` check for ModelForm, should not use exclude (@rocioar)
+- Added `DJ07` check for `ModelForm.META`, should not set fields to `'__all__'` (@rocioar)
+- Added `DJ08` check for Model, should contain `__str__` method (@rodolfolottin)
 
 0.0.3 (2018-10-03)
 ------------------
