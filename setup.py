@@ -1,32 +1,27 @@
-import setuptools
+from os.path import dirname, join
+from setuptools import find_packages, setup
+
+
+with open(join(dirname(__file__), 'flake8_django/VERSION'), 'rb') as f:
+    version = f.read().decode('ascii').strip()
 
 
 with open('README.md', 'r') as f:
     long_description = f.read()
 
 
-setuptools.setup(
+setup(
     name='flake8-django',
     license='GPL',
-    version='0.0.3',
+    version=version,
     description='Plugin to catch bad style specific to Django Projects',
     long_description=long_description,
     long_description_content_type='text/markdown',
     author='Rocio Aramberri Schegel',
     author_email='rocioaramberri@schegel.net',
     url='http://github.com/rocioar/flake8-django',
-    py_modules=[
-        'flake8_django',
-        'checkers.base_model_checker',
-        'checkers',
-        'checkers.checker',
-        'checkers.issue',
-        'checkers.model_fields',
-        'checkers.model_dunder_str',
-        'checkers.model_form',
-        'checkers.render',
-        'checkers.urls',
-    ],
+    packages=find_packages(exclude=('tests', 'tests.*')),
+    include_package_data=True,
     entry_points={
         'flake8.extension': [
             'DJ0 = flake8_django:DjangoStyleChecker',

@@ -1,6 +1,6 @@
 import ast
 
-from checkers import ModelDunderStrMissingChecker, ModelFieldChecker, ModelFormChecker, URLChecker, RenderChecker
+from flake8_django.checkers import ModelDunderStrMissingChecker, ModelFieldChecker, ModelFormChecker, URLChecker, RenderChecker
 
 __version__ = '0.0.3'
 
