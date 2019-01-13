@@ -1,6 +1,6 @@
 import pytest
 
-from checkers.model_fields import NOT_BLANK_TRUE_FIELDS, NOT_NULL_TRUE_FIELDS
+from flake8_django.checkers.model_fields import NOT_BLANK_TRUE_FIELDS, NOT_NULL_TRUE_FIELDS
 
 from .utils import run_check
 
