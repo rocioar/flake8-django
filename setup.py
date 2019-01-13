@@ -17,10 +17,12 @@ setuptools.setup(
     url='http://github.com/rocioar/flake8-django',
     py_modules=[
         'flake8_django',
+        'checkers.base_model_checker',
         'checkers',
         'checkers.checker',
         'checkers.issue',
         'checkers.model_fields',
+        'checkers.model_dunder_str',
         'checkers.model_form',
         'checkers.render',
         'checkers.urls',
