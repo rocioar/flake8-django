@@ -5,6 +5,10 @@ from django.models import Model
 class TestModel1(Model):
     new_field = models.CharField(max_length=10)
 
+    class Meta:
+        verbose_name = 'test model'
+        verbose_name_plural = 'test models'
+
     def __str__(self):
         return self.new_field
 
@@ -18,6 +22,10 @@ class TestModel1(Model):
 
 class TestModel2(models.Model):
     new_field = models.CharField(max_length=10)
+
+    class Meta:
+        verbose_name = 'test model'
+        verbose_name_plural = 'test models'
 
     def __str__(self):
         return self.new_field

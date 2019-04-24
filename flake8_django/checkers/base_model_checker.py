@@ -10,11 +10,13 @@ class BaseModelChecker(Checker):
 
     model_name_lookup = None
 
-    def _is_abstract_and_set_to_true(self, element):
+    @staticmethod
+    def _is_abstract_and_set_to_true(element):
         return (
-                isinstance(element, ast.Assign)
-                and element.value.value is True
-                and any(target.id == 'abstract' for target in element.targets)
+            isinstance(element, ast.Assign)
+            and any(target.id == 'abstract' for target in element.targets if isinstance(target, ast.Name))
+            and isinstance(element.value, ast.NameConstant)
+            and element.value.value is True
         )
 
     def is_abstract_model(self, base):

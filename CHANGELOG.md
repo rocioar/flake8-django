@@ -7,6 +7,11 @@ Change Log
 **Improvements**
 
 - Changed `DJ08` check for `__str__` method to ignore abstract models (@denizdogan)
+- Added `DJ09` - Model must define `class Meta`  (@avallbona)
+- Added `DJ10` - Class Meta from Model has to define `verbose_name`  (@avallbona)
+- Added `DJ11` - Class Meta from Model has to define `verbose_name_plural`  (@avallbona)
+- Fixed some flake8 issues in test files (@avallbona)
+- Refactored some tests  (@avallbona)
 
 0.0.4 (2019-01-18)
 ------------------

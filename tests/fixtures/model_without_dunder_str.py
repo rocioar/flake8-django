@@ -5,6 +5,10 @@ from django.models import Model
 class TestModel1(models.Model):
     new_field = models.CharField(max_length=10)
 
+    class Meta:
+        verbose_name = 'test model'
+        verbose_name_plural = 'test models'
+
     @property
     def my_brand_new_property(self):
         return 1
@@ -15,6 +19,10 @@ class TestModel1(models.Model):
 
 class TestModel2(Model):
     new_field = models.CharField(max_length=10)
+
+    class Meta:
+        verbose_name = 'test model'
+        verbose_name_plural = 'test models'
 
     @property
     def my_brand_new_property(self):

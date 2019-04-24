@@ -1,6 +1,6 @@
 import pytest
 
-from .utils import run_check
+from .utils import run_check, error_code_in_result
 
 
 @pytest.mark.parametrize('code', [
@@ -9,8 +9,8 @@ from .utils import run_check
     "re_path(name='test-1')",
 ])
 def test_url_name_with_dash_fails(code):
-    assert len(run_check(code)) == 1
-    assert 'DJ04' in run_check(code)[0][2]
+    result = run_check(code)
+    assert error_code_in_result('DJ04', result)
 
 
 @pytest.mark.parametrize('code', [
@@ -19,7 +19,8 @@ def test_url_name_with_dash_fails(code):
     "re_path('/test/', View.as_view(), name='test_1')",
 ])
 def test_url_name_with_underscore_sucess(code):
-    assert len(run_check(code)) == 0
+    result = run_check(code)
+    assert not error_code_in_result('DJ04', result)
 
 
 @pytest.mark.parametrize('code', [
@@ -28,8 +29,8 @@ def test_url_name_with_underscore_sucess(code):
     "re_path('/test/', include())"
 ])
 def test_url_include_without_namespace_fails(code):
-    assert len(run_check(code)) == 1
-    assert 'DJ05' in run_check(code)[0][2]
+    result = run_check(code)
+    assert error_code_in_result('DJ05', result)
 
 
 @pytest.mark.parametrize('code', [
@@ -41,4 +42,5 @@ def test_url_include_without_namespace_fails(code):
     "re_path('/test/', includes('test2', namespace='test-2'))",
 ])
 def test_url_include_with_namespace_success(code):
-    assert len(run_check(code)) == 0
+    result = run_check(code)
+    assert not error_code_in_result('DJ05', result)
