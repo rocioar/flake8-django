@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+0.0.5 (2019-05-06)
+------------------
+
+**Improvements**
+
+- Changed `DJ08` check for `__str__` method to ignore abstract models (@denizdogan)
+
 0.0.4 (2019-01-18)
 ------------------
 

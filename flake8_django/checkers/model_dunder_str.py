@@ -15,7 +15,8 @@ class ModelDunderStrMissingChecker(BaseModelChecker):
     def checker_applies(self, node):
         for base in node.bases:
             if self.is_model_name_lookup(base) or self.is_models_name_lookup_attribute(base):
-                return True
+                if not self.is_abstract_model(node):
+                    return True
         return False
 
     def is_dunder_str_method(self, element):
@@ -35,5 +36,3 @@ class ModelDunderStrMissingChecker(BaseModelChecker):
                     col=node.col_offset
                 )
             ]
-
-        return []

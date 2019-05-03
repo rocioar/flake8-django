@@ -2,8 +2,14 @@ from django import models
 from django.models import Model
 
 
-class TestModel1(models.Model):
+class AbstractTestModel1(Model):
     new_field = models.CharField(max_length=10)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.new_field
 
     @property
     def my_brand_new_property(self):
@@ -13,8 +19,14 @@ class TestModel1(models.Model):
         return 2
 
 
-class TestModel2(Model):
+class AbstractTestModel2(models.Model):
     new_field = models.CharField(max_length=10)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.new_field
 
     @property
     def my_brand_new_property(self):
@@ -24,11 +36,14 @@ class TestModel2(Model):
         return 2
 
 
-class TestModel3(Model):
+class AbstractTestModel3(models.Model):
     new_field = models.CharField(max_length=10)
 
     class Meta:
         abstract = False
+
+    def __str__(self):
+        return self.new_field
 
     @property
     def my_brand_new_property(self):
