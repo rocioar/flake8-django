@@ -1,13 +1,19 @@
+import django
 from .checker import Checker
 from .issue import Issue
 
 
+ALLOW_NULL_BOOLEAN = django.VERSION >= (2, 1)
+
 NOT_NULL_TRUE_FIELDS = [
-    'CharField', 'TextField', 'SlugField',
-    'EmailField', 'UUIDField', 'ImageField',
-    'FileField', 'FilePathField', 'URLField'
+    'CharField', 'TextField', 'SlugField', 'EmailField', 'Field',
+    'UUIDField', 'ImageField', 'FileField'
 ]
-NOT_BLANK_TRUE_FIELDS = ['BooleanField']
+NOT_BLANK_TRUE_FIELDS = []
+
+if not ALLOW_NULL_BOOLEAN:
+    NOT_NULL_TRUE_FIELDS.append('BooleanField')
+    NOT_BLANK_TRUE_FIELDS.append('BooleanField')
 
 
 class DJ01(Issue):
