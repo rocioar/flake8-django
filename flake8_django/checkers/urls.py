@@ -18,13 +18,16 @@ class URLChecker(Checker):
     """
     Checks for bad practices on url definition.
     """
+    url_function_names = ['url', 'path', 're_path']
+
     def __init__(self):
         super(URLChecker, self).__init__()
         self.checks = [self.capture_dash_in_url_name, self.capture_url_missing_namespace]
 
     def run(self, node):
-        if self.get_call_name(node) != 'url':
+        if self.get_call_name(node) not in self.url_function_names:
             return
+
         issues = []
         for check in self.checks:
             issue = check(node)
