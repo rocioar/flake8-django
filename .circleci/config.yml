@@ -26,7 +26,7 @@ jobs:
           name: run coverage
           command: |
             . venv/bin/activate
-            pip install -e .
+            pip install -e ".[tests]"
             py.test --cov=. --cov-fail-under=100
       - run:
           name: upload coverage report
