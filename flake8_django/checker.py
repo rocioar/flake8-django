@@ -1,6 +1,7 @@
 import ast
 
-from flake8_django.checkers import ModelDunderStrMissingChecker, ModelFieldChecker, ModelFormChecker, URLChecker, RenderChecker
+from flake8_django.checkers import ModelContentOrderChecker, ModelDunderStrMissingChecker, ModelFieldChecker, \
+    ModelFormChecker, URLChecker, RenderChecker
 
 __version__ = '0.0.3'
 
@@ -18,6 +19,7 @@ class DjangoStyleFinder(ast.NodeVisitor):
         'ClassDef': [
             ModelFormChecker(),
             ModelDunderStrMissingChecker(),
+            ModelContentOrderChecker(),
         ]
     }
 
