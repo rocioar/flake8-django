@@ -59,6 +59,18 @@ class CustomMethodBeforeStr(models.Model):
         return 'foobar'
 
 
+class ConstantsAreNotFields(models.Model):
+    """
+    Model with an assignment to a constant after __str__.
+    """
+    first_name = models.CharField(max_length=32)
+
+    def __str__(self):
+        pass
+
+    MY_CONSTANT = id(1)
+
+
 class PerfectlyFine(models.Model):
     """
     Model which has everything in perfect order.
