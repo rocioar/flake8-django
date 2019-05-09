@@ -17,7 +17,9 @@ class DJ09(Issue):
 
 
 def is_assignment_call(node):
-    return isinstance(node, Assign) and isinstance(node.value, Call)
+    # check if assigning the return value of a function call to a target which is not in all uppercase letters
+    # (because that would be a constant)
+    return isinstance(node, Assign) and isinstance(node.value, Call) and not node.targets[0].id.isupper()
 
 
 def is_manager_declaration(node):
