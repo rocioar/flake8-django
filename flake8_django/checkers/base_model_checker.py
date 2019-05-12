@@ -10,6 +10,26 @@ class BaseModelChecker(Checker):
 
     model_name_lookup = None
 
+    def _is_abstract_and_set_to_true(self, element):
+        return (
+                isinstance(element, ast.Assign)
+                and element.value.value is True
+                and any(target.id == 'abstract' for target in element.targets)
+        )
+
+    def is_abstract_model(self, base):
+        """
+        Return True if AST node has a Meta class with abstract = True.
+        """
+        # look for "class Meta"
+        for element in base.body:
+            if isinstance(element, ast.ClassDef) and element.name == 'Meta':
+                # look for "abstract = True"
+                for inner_element in element.body:
+                    if self._is_abstract_and_set_to_true(inner_element):
+                        return True
+        return False
+
     def is_model_name_lookup(self, base):
         """
         Return True if class is defined as the respective model name lookup declaration
