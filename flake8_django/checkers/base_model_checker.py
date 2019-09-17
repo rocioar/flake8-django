@@ -13,8 +13,8 @@ class BaseModelChecker(Checker):
     def _is_abstract_and_set_to_true(self, element):
         return (
                 isinstance(element, ast.Assign)
-                and element.value.value is True
                 and any(target.id == 'abstract' for target in element.targets)
+                and element.value.value is True
         )
 
     def is_abstract_model(self, base):
