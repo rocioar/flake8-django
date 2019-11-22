@@ -2,7 +2,6 @@ import django
 from .checker import Checker
 from .issue import Issue
 
-
 ALLOW_NULL_BOOLEAN = django.VERSION >= (2, 1)
 
 NOT_NULL_TRUE_FIELDS = [
