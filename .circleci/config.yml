@@ -23,12 +23,6 @@ jobs:
               . venv/bin/activate
               git diff HEAD $(git merge-base HEAD origin/master)  | flake8 --diff
       - run:
-          name: run coverage
-          command: |
-            . venv/bin/activate
-            pip install -e .
-            py.test --cov=. --cov-fail-under=100
-      - run:
           name: upload coverage report
           command: |
             . venv/bin/activate
