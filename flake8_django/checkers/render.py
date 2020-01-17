@@ -19,7 +19,7 @@ class RenderChecker(Checker):
             return
         issues = []
         for arg in node.args:
-            if isinstance(arg, ast.Call) and arg.func.id == 'locals':
+            if isinstance(arg, ast.Call) and getattr(arg.func, 'id', '') == 'locals':
                 issues.append(
                     DJ03(
                         lineno=node.lineno,
