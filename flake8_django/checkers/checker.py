@@ -6,7 +6,8 @@ class Checker(object):
     Abstract class for Checkers.
     """
 
-    def get_call_name(self, node):
+    @staticmethod
+    def get_call_name(node):
         """
         Return call name for the given node.
         """

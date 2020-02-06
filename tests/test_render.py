@@ -1,12 +1,13 @@
-from .utils import run_check
+from .utils import run_check, error_code_in_result
 
 
 def test_render_doesnt_use_locals_fails():
     code = "render(request, 'template.html', locals())"
-    assert len(run_check(code)) == 1
-    assert 'DJ03' in run_check(code)[0][2]
+    result = run_check(code)
+    assert error_code_in_result('DJ03', result)
 
 
 def test_render_doesnt_use_locals_success():
     code = "render(request, 'template.html', {'test': 'test'})"
-    assert len(run_check(code)) == 0
+    result = run_check(code)
+    assert not error_code_in_result('DJ03', result)

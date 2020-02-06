@@ -1,0 +1,27 @@
+from .utils import run_check, load_fixture_file, error_code_in_result
+
+
+def test_model_without_meta_fails():
+    code = load_fixture_file('model_without_meta.py')
+    result = run_check(code)
+    assert error_code_in_result('DJ09', result)
+
+
+def test_model_with_meta_success():
+    code = load_fixture_file('model_with_meta.py')
+    result = run_check(code)
+    assert not error_code_in_result('DJ09', result)
+
+
+def test_model_with_meta_without_verbose_name_fails():
+    code = load_fixture_file('model_with_meta_without_verbose_name.py')
+    result = run_check(code)
+    assert error_code_in_result('DJ10', result)
+    assert error_code_in_result('DJ11', result)
+
+
+def test_model_abstract_without_meta_success():
+    code = load_fixture_file('model_abstract_with_meta_without_verbose_name.py')
+    result = run_check(code)
+    assert not error_code_in_result('DJ10', result)
+    assert not error_code_in_result('DJ11', result)
