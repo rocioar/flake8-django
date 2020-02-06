@@ -18,7 +18,7 @@ def test_url_name_with_dash_fails(code):
     "path('/test/', View.as_view(), name='test_1')",
     "re_path('/test/', View.as_view(), name='test_1')",
 ])
-def test_url_name_with_underscore_sucess(code):
+def test_url_name_with_underscore_success(code):
     result = run_check(code)
     assert not error_code_in_result('DJ04', result)
 
