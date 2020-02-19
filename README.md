@@ -44,6 +44,7 @@ $ pytest --cov=.
 | `DJ09` | Model must define `class Meta`|
 | `DJ10` | Class Meta from Model has to define `verbose_name`|
 | `DJ11` | Class Meta from Model has to define `verbose_name_plural`|
+| `DJ12` | Fields `ForeignKey` and `ManyToManyField` need to have a `related_name`|
 
 ## Licence
 
