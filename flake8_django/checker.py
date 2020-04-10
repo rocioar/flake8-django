@@ -64,4 +64,4 @@ class DjangoStyleChecker(object):
         parser.visit(self.tree)
 
         for issue in parser.issues:
-            yield (issue.lineno, issue.col, issue.message, DjangoStyleChecker)
+            yield issue.lineno, issue.col, issue.message, DjangoStyleChecker
