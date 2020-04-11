@@ -1,5 +1,7 @@
 name: CI
-on: [push]
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   build:
@@ -10,14 +12,42 @@ jobs:
         python-version: [3.5, 3.6, 3.7, 3.8]
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install tox tox-gh-actions
-    - name: Test with tox
-      run: tox
+      - uses: actions/checkout@v1
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install tox tox-gh-actions
+      - name: Test with tox
+        run: tox
+  flake8:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: pip install flake8
+      - name: Run flake8
+        run: git diff HEAD $(git merge-base HEAD origin/master)  | flake8 --diff
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: pip install pytest-cov
+      - name: Run Coverage
+        run: py.test --cov=. --cov-fail-under=100
+      - name: Upload Coverage
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: pip install codecov && codecov
