@@ -1,8 +1,7 @@
 # flake8-django
 
 [![pypi](https://img.shields.io/pypi/v/flake8-django.svg)](https://pypi.python.org/pypi/flake8-django/)
-[![CircleCI](https://circleci.com/gh/rocioar/flake8-django/tree/master.svg?style=shield)](https://circleci.com/gh/rocioar/flake8-django/tree/master)
-[![Codecov](https://codecov.io/gh/rocioar/flake8-django/branch/master/graph/badge.svg)](https://codecov.io/gh/rocioar/flake8-django)
+![CI](https://github.com/rocioar/flake8-django/workflows/CI/badge.svg)[![Codecov](https://codecov.io/gh/rocioar/flake8-django/branch/master/graph/badge.svg)](https://codecov.io/gh/rocioar/flake8-django)
 [![Downloads](https://pepy.tech/badge/flake8-django)](https://pepy.tech/project/flake8-django)
 
 A flake8 plugin for Django projects.
