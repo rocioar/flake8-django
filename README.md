@@ -35,7 +35,6 @@ $ pytest --cov=.
 | `DJ01` | Using `null=True` is not recommended for some of the Django ORM fields. E.g. `CharField`, `EmailField`, `ImageField`, `FileField`, `UUIDField`, `SlugField`, `TextField` |
 | `DJ02` | Using `blank=True` is not recommended on `BooleanField`|
 | `DJ03` | Using locals() in render function is not recommended, use explicit arguments |
-| `DJ04` | Using dashes in url names is discouraged, use underscores instead |
 | `DJ05` | URLs include() should set a namespace |
 | `DJ06` | ModelForm should not set exclude, instead it should use fields, which is an explicit list of all the fields that should be included in the form |
 | `DJ07` | ModelForm.Meta should not set fields to `__all__`|

@@ -1,6 +1,15 @@
 Change Log
 ==========
 
+0.0.6 (dev)
+-----------
+
+**Improvements**
+
+* Remove `DJ04` check since Django uses dashes on their examples (@rocioar)
+* Remove tox, use Github Actions for running tests and coverage (@rocioar)
+* Drop support for Python 3.4 (@rocioar)
+
 0.0.5 (2019-05-06)
 ------------------
 
