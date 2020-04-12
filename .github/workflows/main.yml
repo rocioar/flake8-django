@@ -49,7 +49,7 @@ jobs:
       - name: Install dependencies
         run: pip install pytest-cov
       - name: Run Coverage
-        run: py.test --cov=. --cov-fail-under=100
+        run: py.test --cov=.
       - name: Upload Coverage
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
