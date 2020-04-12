@@ -4,11 +4,6 @@ from .checker import Checker
 from .issue import Issue
 
 
-class DJ04(Issue):
-    code = 'DJ04'
-    description = 'not recommended to use dashes in url name, use underscore instead'
-
-
 class DJ05(Issue):
     code = 'DJ05'
     description = 'Missing namespace in urls include()'
@@ -22,7 +17,7 @@ class URLChecker(Checker):
 
     def __init__(self):
         super(URLChecker, self).__init__()
-        self.checks = [self.capture_dash_in_url_name, self.capture_url_missing_namespace]
+        self.checks = [self.capture_url_missing_namespace]
 
     def run(self, node):
         if self.get_call_name(node) not in self.url_function_names:
@@ -34,17 +29,6 @@ class URLChecker(Checker):
             if issue:
                 issues.append(issue)
         return issues
-
-    def capture_dash_in_url_name(self, node):
-        """
-        Capture dash in URL name
-        """
-        for keyword in node.keywords:
-            if keyword.arg == 'name' and '-' in keyword.value.s:
-                return DJ04(
-                    lineno=node.lineno,
-                    col=node.col_offset,
-                )
 
     def capture_url_missing_namespace(self, node):
         """
