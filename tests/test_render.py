@@ -1,3 +1,5 @@
+import pytest
+
 from .utils import run_check, error_code_in_result
 
 
@@ -7,7 +9,10 @@ def test_render_doesnt_use_locals_fails():
     assert error_code_in_result('DJ03', result)
 
 
-def test_render_doesnt_use_locals_success():
-    code = "render(request, 'template.html', {'test': 'test'})"
+@pytest.mark.parametrize('code', [
+    "render(request, 'template.html', {'test': 'test'})",
+    "return render(request, 'template.html', self.get_context_data())",
+])
+def test_render_doesnt_use_locals_success(code):
     result = run_check(code)
     assert not error_code_in_result('DJ03', result)
