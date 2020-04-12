@@ -23,9 +23,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install tox tox-gh-actions
-      - name: Test with tox
-        run: tox
+          pip install pytest
+      - name: Test
+        run: pytest
   flake8:
     runs-on: ubuntu-latest
     steps:
