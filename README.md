@@ -41,6 +41,7 @@ $ pytest --cov=.
 | `DJ09` | Model must define `class Meta`|
 | `DJ10` | Class Meta from Model has to define `verbose_name`|
 | `DJ11` | Class Meta from Model has to define `verbose_name_plural`|
+| `DJ12` | Order of model inner classes and standard methods does not follow [Django style guide](https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/#model-style) |
 
 ## Licence
 
