@@ -1,14 +1,21 @@
 Change Log
 ==========
 
-0.0.6 (dev)
------------
+1.0.0 (2020-04-16)
+------------------
+
+**Bugfixes**
+
+* Bug fix for RenderChecker (@GitRon)
 
 **Improvements**
 
 * Remove `DJ04` check since Django uses dashes on their examples (@rocioar)
+* Remove `DJ02` since it's not applicable anymore. Django has deprecated NullBooleanField. (@rocioar)
+* Added Model Content Order Check `DJ12`. (@denizdogan)
 * Remove tox, use Github Actions for running tests and coverage (@rocioar)
 * Drop support for Python 3.4 (@rocioar)
+
 
 0.0.5 (2019-05-06)
 ------------------
