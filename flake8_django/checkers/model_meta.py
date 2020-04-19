@@ -97,4 +97,3 @@ class ModelMetaChecker(BaseModelChecker):
             )
 
         return issues
-

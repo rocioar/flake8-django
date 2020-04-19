@@ -48,12 +48,12 @@ class CustomMethodBeforeStr(models.Model):
     Model with a custom method before __str__.
     """
 
-    def my_method(self):
-        pass
-
     class Meta:
         verbose_name = 'test'
         verbose_name_plural = 'tests'
+
+    def my_method(self):
+        pass
 
     def __str__(self):
         return 'foobar'
@@ -64,6 +64,10 @@ class ConstantsAreNotFields(models.Model):
     Model with an assignment to a constant after __str__.
     """
     first_name = models.CharField(max_length=32)
+
+    class Meta:
+        verbose_name = 'test'
+        verbose_name_plural = 'tests'
 
     def __str__(self):
         pass
@@ -76,6 +80,7 @@ class PerfectlyFine(models.Model):
     Model which has everything in perfect order.
     """
     first_name = models.CharField(max_length=32)
+    last_name = models.CharField(max_length=32)
     objects = 'manager'
 
     class Meta:
