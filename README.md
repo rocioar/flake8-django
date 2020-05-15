@@ -49,4 +49,4 @@ GPL
 
 ## Thanks
 
-[@stummjr](https://github.com/stummjr) for teaching me AST, and what I could do with it. His [blog](https://dunderdoc.wordpress.com/) is cool.
+[@stummjr](https://github.com/stummjr) for teaching me AST, and what I could do with it. His [blog](https://stummjr.org/post/building-a-custom-flake8-plugin/) is cool.
