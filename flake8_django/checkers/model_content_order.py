@@ -20,10 +20,14 @@ class DJ12(Issue):
         )
 
 
-def is_assignment_call(node):
-    # check if assigning the return value of a function call to a target which is not in all uppercase letters
-    # (because that would be a constant)
-    return isinstance(node, Assign) and isinstance(node.value, Call) and not node.targets[0].id.isupper()
+def is_field_declaration(node):
+    """
+    Verifies that the code is of the form: `field = models.CharField()`, matching by the `models` string.
+    """
+    try:
+        return node.value.func.value.id == 'models'
+    except AttributeError:
+        return False
 
 
 def is_manager_declaration(node):
@@ -61,7 +65,7 @@ class ModelContentOrderChecker(BaseModelChecker):
         CUSTOM_METHOD: 6,
     }
     CONTENT_TYPE_CHECKS = [
-        (is_assignment_call, FIELD_DECLARATION),
+        (is_field_declaration, FIELD_DECLARATION),
         (is_manager_declaration, MANAGER_DECLARATION),
         (is_meta_declaration, META_CLASS),
         (partial(is_method, method_name='__str__'), STR_METHOD),
