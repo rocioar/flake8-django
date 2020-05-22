@@ -7,7 +7,6 @@ from flake8_django.checkers import (
     ModelFormChecker,
     ModelMetaChecker,
     RenderChecker,
-    URLChecker,
 )
 
 __version__ = '0.0.4'
@@ -20,7 +19,6 @@ class DjangoStyleFinder(ast.NodeVisitor):
     checkers = {
         'Call': [
             ModelFieldChecker(),
-            URLChecker(),
             RenderChecker(),
         ],
         'ClassDef': [
