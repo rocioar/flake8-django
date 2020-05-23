@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+1.1.0 (dev)
+-----------
+
+**Bugfixes**
+
+* Remove `DJ05` check since we don't have a way to now when namespaces could be skipped (@rocioar)
+
 1.0.0 (2020-04-16)
 ------------------
 
