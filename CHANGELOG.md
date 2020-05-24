@@ -1,18 +1,19 @@
 Change Log
 ==========
 
-1.1.0 (dev)
------------
+1.1.0 (2020-05-24)
+------------------
 
 **Bugfixes**
 
-* Remove `DJ05` check since we don't have a way to now when namespaces could be skipped (@rocioar)
-* Consider exception for `DJ01` when unique=True and null=True warning should not be raised. (@rocioar)
+* Fixed `DJ01` to consider exception when unique=True and null=True warning should not be raised. (@rocioar)
 
 **Improvements**
 
-* Remove `DJ09`, `DJ10` and `DJ11` since it should not be mandatory to set a `verbose_name` or `verbose_name_plural`. (@rocioar)
-* Re-write checks description for better understanding. (@rocioar)
+* Added documentation for all the Rules. (@rocioar)
+* Removed `DJ09`, `DJ10` and `DJ11` since it should not be mandatory to set a `verbose_name` or `verbose_name_plural`. (@rocioar)
+* Removed `DJ05` check since we don't have a way to now when namespaces could be skipped (@rocioar)
+* Re-wrote Rules description for better understanding. (@rocioar)
 
 1.0.0 (2020-04-16)
 ------------------
@@ -23,11 +24,11 @@ Change Log
 
 **Improvements**
 
-* Remove `DJ04` check since Django uses dashes on their examples (@rocioar)
-* Remove `DJ02` since it's not applicable anymore. Django has deprecated NullBooleanField. (@rocioar)
+* Removed `DJ04` check since Django uses dashes on their examples (@rocioar)
+* Removed `DJ02` since it's not applicable anymore. Django has deprecated NullBooleanField. (@rocioar)
 * Added Model Content Order Check `DJ12`. (@denizdogan)
-* Remove tox, use Github Actions for running tests and coverage (@rocioar)
-* Drop support for Python 3.4 (@rocioar)
+* Removed tox, use Github Actions for running tests and coverage (@rocioar)
+* Dropped support for Python 3.4 (@rocioar)
 
 
 0.0.5 (2019-05-06)
