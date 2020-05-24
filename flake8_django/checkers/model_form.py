@@ -6,12 +6,12 @@ from .issue import Issue
 
 class DJ06(Issue):
     code = 'DJ06'
-    description = 'ModelForm.Meta should not set "exclude", set "fields" instead'
+    description = 'Do not use exclude with ModelForm, use fields instead'
 
 
 class DJ07(Issue):
     code = 'DJ07'
-    description = "ModelForm.Meta should not set fields to '__all__'"
+    description = "Do not use __all__ with ModelForm, use fields instead"
 
 
 class ModelFormChecker(BaseModelChecker):

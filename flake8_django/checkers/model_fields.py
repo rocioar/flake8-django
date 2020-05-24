@@ -11,7 +11,7 @@ NOT_NULL_TRUE_FIELDS = [
 
 class DJ01(Issue):
     code = 'DJ01'
-    description = 'null=True not recommended to be used in {field}'
+    description = 'Avoid using null=True on string-based fields such as CharField and TextField'
 
 
 class ModelFieldChecker(Checker):
