@@ -37,9 +37,6 @@ $ pytest --cov=.
 | `DJ06` | ModelForm should not set exclude, instead it should use fields, which is an explicit list of all the fields that should be included in the form |
 | `DJ07` | ModelForm.Meta should not set fields to `__all__`|
 | `DJ08` | Models that inherits from django db models should set `__str__`|
-| `DJ09` | Model must define `class Meta`|
-| `DJ10` | Class Meta from Model has to define `verbose_name`|
-| `DJ11` | Class Meta from Model has to define `verbose_name_plural`|
 | `DJ12` | Order of model inner classes and standard methods does not follow [Django style guide](https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/#model-style) |
 
 ## Licence
