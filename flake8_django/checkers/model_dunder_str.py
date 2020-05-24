@@ -6,7 +6,7 @@ from .issue import Issue
 
 class DJ08(Issue):
     code = 'DJ08'
-    description = '__str__ method should be present in all db models'
+    description = 'Model does not define __str__ method'
 
 
 class ModelDunderStrMissingChecker(BaseModelChecker):

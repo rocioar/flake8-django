@@ -10,7 +10,8 @@ Change Log
 
 **Improvements**
 
-* Remove `DJ09`, `DJ10` and `DJ11` since it should not be mandatory to set a `verbose_name` or `verbose_name_plural`.
+* Remove `DJ09`, `DJ10` and `DJ11` since it should not be mandatory to set a `verbose_name` or `verbose_name_plural`. (@rocioar)
+* Re-write checks description for better understanding. (@rocioar)
 
 1.0.0 (2020-04-16)
 ------------------

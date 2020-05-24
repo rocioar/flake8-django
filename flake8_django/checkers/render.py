@@ -6,7 +6,7 @@ from .issue import Issue
 
 class DJ03(Issue):
     code = 'DJ03'
-    description = 'Use of locals() is not recommended in render function, use explicit arguments'
+    description = 'Avoid passing locals() as context to a render function'
 
 
 class RenderChecker(Checker):

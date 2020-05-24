@@ -8,8 +8,8 @@ from .issue import Issue
 class DJ12(Issue):
     code = 'DJ12'
     description = (
-        'Order of model inner classes and standard methods does not follow '
-        'Django style guide: {elem_type} should come before {before}'
+        "Order of Model's inner classes, methods, and fields does not follow the"
+        "Django Style Guide: {elem_type} should come before {before}"
     )
 
     def __init__(self, elem, elem_type, before):
