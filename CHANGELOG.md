@@ -7,6 +7,7 @@ Change Log
 **Bugfixes**
 
 * Remove `DJ05` check since we don't have a way to now when namespaces could be skipped (@rocioar)
+* Consider exception for `DJ01` when unique=True and null=True warning should not be raised. (@rocioar)
 
 **Improvements**
 
