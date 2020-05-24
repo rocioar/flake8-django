@@ -8,6 +8,10 @@ Change Log
 
 * Remove `DJ05` check since we don't have a way to now when namespaces could be skipped (@rocioar)
 
+**Improvements**
+
+* Remove `DJ09`, `DJ10` and `DJ11` since it should not be mandatory to set a `verbose_name` or `verbose_name_plural`.
+
 1.0.0 (2020-04-16)
 ------------------
 
