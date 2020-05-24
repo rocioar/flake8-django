@@ -28,16 +28,18 @@ Run coverage report using:
 $ pytest --cov=.
 ```
 
-## List of warnings
+## List of Rules
 
-| Warning | Description |
-| --- | --- |
-| [`DJ01`]((https://github.com/rocioar/flake8-django/wiki/%5BDJ01%5D-Avoid-using-null=True-on-string-based-fields-such-as-CharField-and-TextField)) | Avoid using null=True on string-based fields such as CharField and TextField |
-| [`DJ03`]((https://github.com/rocioar/flake8-django/wiki/%5BDJ03%5D-Avoid-passing-locals()-as-context-to-a-render-function)) | Avoid passing locals() as context to a render function |
-| [`DJ06`]((https://github.com/rocioar/flake8-django/wiki/%5BDJ06%5D-Do-not-use-exclude-with-ModelForm,-use-fields-instead)) | Do not use exclude with ModelForm, use fields instead |
-| [`DJ07`]((https://github.com/rocioar/flake8-django/wiki/%5BDJ07%5D-Do-not-set-fields-to-'__all__'-on-ModelForm,-use-fields-instead)) | Do not use __all__ with ModelForm, use fields instead |
-| [`DJ08`]((https://github.com/rocioar/flake8-django/wiki/%5BDJ08%5D-Model-does-not-define-__str__-method)) | Model does not define __str__ method |
-| [`DJ12`]((https://github.com/rocioar/flake8-django/wiki/%5BDJ12%5D-Order-of-Model's-inner-classes,-methods,-and-fields-does-not-follow-the-Django-Style-Guide)) | Order of Model's inner classes, methods, and fields does not follow the [Django Style Guide](https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/#model-style) |
+| Rule | Description |
+| ---- | ----------- |
+| [`DJ01`](https://github.com/rocioar/flake8-django/wiki/%5BDJ01%5D-Avoid-using-null=True-on-string-based-fields-such-as-CharField-and-TextField) | Avoid using null=True on string-based fields such as CharField and TextField |
+| [`DJ03`](https://github.com/rocioar/flake8-django/wiki/%5BDJ03%5D-Avoid-passing-locals()-as-context-to-a-render-function) | Avoid passing locals() as context to a render function |
+| [`DJ06`](https://github.com/rocioar/flake8-django/wiki/%5BDJ06%5D-Do-not-use-exclude-with-ModelForm,-use-fields-instead) | Do not use exclude with ModelForm, use fields instead |
+| [`DJ07`](https://github.com/rocioar/flake8-django/wiki/%5BDJ07%5D-Do-not-set-fields-to-'__all__'-on-ModelForm,-use-fields-instead) | Do not use `__all__` with ModelForm, use fields instead |
+| [`DJ08`](https://github.com/rocioar/flake8-django/wiki/%5BDJ08%5D-Model-does-not-define-__str__-method) | Model does not define `__str__` method |
+| [`DJ12`](https://github.com/rocioar/flake8-django/wiki/%5BDJ12%5D-Order-of-Model's-inner-classes,-methods,-and-fields-does-not-follow-the-Django-Style-Guide) | Order of Model's inner classes, methods, and fields does not follow the [Django Style Guide](https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/#model-style) |
+
+More details about each of the Rules can be found on the [wiki page](https://github.com/rocioar/flake8-django/wiki).
 
 ## Licence
 
