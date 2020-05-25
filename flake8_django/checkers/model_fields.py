@@ -26,13 +26,13 @@ class ModelFieldChecker(Checker):
         found_blank_true = False
         issues = []
         for keyword in node.keywords:
-            if keyword.arg == 'null' and keyword.value.value is True:
+            if keyword.arg == 'null' and getattr(keyword.value, 'value', False) is True:
                 found_null_true = True
 
-            if keyword.arg == 'unique' and keyword.value.value is True:
+            if keyword.arg == 'unique' and getattr(keyword.value, 'value', False) is True:
                 found_unique_true = True
 
-            if keyword.arg == 'blank' and keyword.value.value is True:
+            if keyword.arg == 'blank' and getattr(keyword.value, 'value', False) is True:
                 found_blank_true = True
 
             # consider exception for the rule when unique=True and blank=True

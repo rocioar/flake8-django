@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+1.1.1 (2020-05-25)
+------------------
+
+**Bugfixes**
+* Fixed bug on `DJ01` when the keyword argument value of `unique`, `blank` or `null` keywords was not a simple value.
+
 1.1.0 (2020-05-24)
 ------------------
 
