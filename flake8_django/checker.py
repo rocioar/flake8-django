@@ -5,6 +5,7 @@ from flake8_django.checkers import (
     ModelDunderStrMissingChecker,
     ModelFieldChecker,
     ModelFormChecker,
+    ModelMetaChecker,
     RenderChecker,
 )
 
@@ -23,6 +24,7 @@ class DjangoStyleFinder(ast.NodeVisitor):
         'ClassDef': [
             ModelFormChecker(),
             ModelDunderStrMissingChecker(),
+            ModelMetaChecker(),
             ModelContentOrderChecker(),
         ]
     }
