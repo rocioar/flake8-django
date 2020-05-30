@@ -4,19 +4,14 @@ from flake8_django.checkers.base_model_checker import BaseModelChecker
 from flake8_django.checkers.issue import Issue
 
 
-class DJ09(Issue):
-    code = 'DJ09'
-    description = 'Model: {model} must define class Meta'
-
-
 class DJ10(Issue):
     code = 'DJ10'
-    description = 'Model: {model} has no verbose_name'
+    description = 'Model should define verbose_name in its Meta inner class'
 
 
 class DJ11(Issue):
     code = 'DJ11'
-    description = 'Model: {model} has no verbose_name_plural'
+    description = 'Model should define verbose_name_plural in its Meta inner class'
 
 
 class ModelMetaChecker(BaseModelChecker):
@@ -34,7 +29,6 @@ class ModelMetaChecker(BaseModelChecker):
         # for node in element.body[0].body:  # type: ignore
         for node in element.body:  # type: ignore
             if isinstance(node, ast.ClassDef):
-                # class Meta
                 if node.name == 'Meta':
                     return node
         return
@@ -63,36 +57,23 @@ class ModelMetaChecker(BaseModelChecker):
         """
         if not self.checker_applies(node):
             return
-        model_name = node.name
-        issues = []
 
         meta_class_node = self.has_meta_class(node)
 
-        if not meta_class_node:
-            issues.append(
-                DJ09(
-                    lineno=node.lineno,
-                    col=node.col_offset,
-                    parameters={'model': model_name}
-                )
-            )
-            return issues
-
-        if not self.has_verbose_name(meta_class_node):
+        issues = []
+        if not meta_class_node or not self.has_verbose_name(meta_class_node):
             issues.append(
                 DJ10(
                     lineno=node.lineno,
                     col=node.col_offset,
-                    parameters={'model': model_name}
                 )
             )
 
-        if not self.has_verbose_name_plural(meta_class_node):
+        if not meta_class_node or not self.has_verbose_name_plural(meta_class_node):
             issues.append(
                 DJ11(
                     lineno=node.lineno,
                     col=node.col_offset,
-                    parameters={'model': model_name}
                 )
             )
 

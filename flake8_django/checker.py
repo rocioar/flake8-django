@@ -9,7 +9,10 @@ from flake8_django.checkers import (
     RenderChecker,
 )
 
-__version__ = '0.0.4'
+__version__ = '1.1.1'
+
+
+CHECKS_DISABLED_BY_DEFAULT = ['DJ10', 'DJ11']
 
 
 class DjangoStyleFinder(ast.NodeVisitor):
@@ -51,13 +54,17 @@ class DjangoStyleChecker(object):
     """
     Check common Django Style errors
     """
-    options = None
     name = 'flake8-django'
     version = __version__
 
     def __init__(self, tree, filename):
         self.tree = tree
         self.filename = filename
+
+    @staticmethod
+    def add_options(optmanager):
+        """Informs flake8 to ignore checks by default."""
+        optmanager.extend_default_ignore(CHECKS_DISABLED_BY_DEFAULT)
 
     def run(self):
         parser = DjangoStyleFinder()

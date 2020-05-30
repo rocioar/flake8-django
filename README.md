@@ -41,6 +41,13 @@ $ pytest --cov=.
 
 More details about each of the Rules can be found on the [wiki page](https://github.com/rocioar/flake8-django/wiki).
 
+## Optional Rules - Disabled by Default
+
+| Rule | Description |
+| ---- | ----------- |
+| [`DJ10`](https://github.com/rocioar/flake8-django/wiki/%5BDJ10%5D-Model-should-define-verbose_name-on-its-Meta-inner-class) | Model should define verbose_name on its Meta inner class |
+| [`DJ11`](https://github.com/rocioar/flake8-django/wiki/%5BDJ11%5D-Model-should-define-verbose_name_plural-on-its-Meta-inner-class) | Model should define verbose_name_plural on its Meta inner class |
+
 ## Licence
 
 GPL
