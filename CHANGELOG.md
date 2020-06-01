@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+1.2.1 (dev)
+-----------
+
+**Improvements**
+
+* Re-add `DJ10` and `DJ11` as optional checks which are disabled by default
+
 1.1.1 (2020-05-25)
 ------------------
 

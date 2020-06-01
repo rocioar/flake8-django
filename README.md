@@ -41,6 +41,28 @@ $ pytest --cov=.
 
 More details about each of the Rules can be found on the [wiki page](https://github.com/rocioar/flake8-django/wiki).
 
+## Optional Rules - Disabled by Default
+
+| Rule | Description |
+| ---- | ----------- |
+| [`DJ10`](https://github.com/rocioar/flake8-django/wiki/%5BDJ10%5D-Model-should-define-verbose_name-on-its-Meta-inner-class) | Model should define verbose_name on its Meta inner class |
+| [`DJ11`](https://github.com/rocioar/flake8-django/wiki/%5BDJ11%5D-Model-should-define-verbose_name_plural-on-its-Meta-inner-class) | Model should define verbose_name_plural on its Meta inner class |
+
+To enable optional rules you can use the `--select` parameter. It's default values are: E,F,W,C90.
+
+For example, if you wanted to enable `DJ10`, you could call `flake8` in the following way:
+```
+flake8 --select=E,F,W,C90,DJ,DJ10
+```
+
+You could also add it to your configuration file:
+```
+[flake8]
+max-line-length = 120
+...
+select = C,E,F,W,DJ,DJ10
+```
+
 ## Licence
 
 GPL
