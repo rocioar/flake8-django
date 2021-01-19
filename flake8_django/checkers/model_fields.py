@@ -4,7 +4,7 @@ from .issue import Issue
 
 NOT_NULL_TRUE_FIELDS = [
     'CharField', 'TextField', 'SlugField',
-    'EmailField', 'UUIDField', 'ImageField',
+    'EmailField', 'ImageField',
     'FileField', 'FilePathField', 'URLField'
 ]
 
