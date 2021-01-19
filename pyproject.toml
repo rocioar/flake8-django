@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "flake8-django"
+version = "1.1.1"
+description = "A flake8 plugin to detect bad practices on Django projects."
+readme = "README.md"
+authors = ["Rocio Aramberri Schegel <rocioaramberri@schegel.net>"]
+license = "GPL"
+repository = "http://github.com/rocioar/flake8-django"
+classifiers=[
+    'Framework :: Flake8',
+    'License :: OSI Approved :: MIT License',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Topic :: Software Development :: Libraries :: Python Modules',
+    'Topic :: Software Development :: Quality Assurance',
+]
+packages = [
+  { include = "flake8_django" },
+]
+
+[tool.poetry.scripts]
+"flake8.extension" = "flake8_django:DjangoStyleChecker"
+
+[tool.coverage.run]
+source = ["flake8_django"]
+omit = [
+  "setup.py",
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+flake8 = "^3.8.4"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.1"
+pytest-cov = "^2.11.0"
+pytest-sugar = "^0.9.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
