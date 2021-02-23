@@ -8,7 +8,7 @@ from .issue import Issue
 class DJ12(Issue):
     code = 'DJ12'
     description = (
-        "Order of Model's inner classes, methods, and fields does not follow the"
+        "The order of the model's inner classes, methods, and fields do not follow the "
         "Django Style Guide: {elem_type} should come before {before}"
     )
 
