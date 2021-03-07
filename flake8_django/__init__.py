@@ -1,1 +1,1 @@
-from flake8_django.checker import DjangoStyleChecker
+from flake8_django.checker import DjangoStyleChecker  # noqa: F401

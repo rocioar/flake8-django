@@ -1,2 +1,0 @@
-include flake8_django/VERSION
-include README.md

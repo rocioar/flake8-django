@@ -1,4 +1,4 @@
-from ast import Assign, Call, ClassDef, FunctionDef
+from ast import Assign, ClassDef, FunctionDef
 from functools import partial
 
 from .base_model_checker import BaseModelChecker
