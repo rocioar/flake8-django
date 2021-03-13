@@ -33,4 +33,5 @@ python = "^3.6"
 flake8 = "^3.8.4"
 
 [tool.poetry.dev-dependencies]
-pytest = "6.2.2"
+pytest = "^6.2.2"
+pytest-cov = "^2.11.1"
