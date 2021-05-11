@@ -1,12 +1,18 @@
 Change Log
 ==========
 
-1.2.1 (dev)
+1.1.2 (2021-05-11)
 -----------
+
+**Bugfixes**
+
+* Removed UUIDField from DJ01 (@noamkush)
+* Removed ImageField from DJ01 (Ferran Jovel)
 
 **Improvements**
 
-* Re-add `DJ10` and `DJ11` as optional checks which are disabled by default
+* Re-add `DJ10` and `DJ11` (verbose_name and verbose_name_plural checks) as optional checks which are disabled by default (@rocioar)
+* Update DJ12 error message (@sondrelg)
 
 1.1.1 (2020-05-25)
 ------------------
