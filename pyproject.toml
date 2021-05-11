@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "flake8-django"
+version = "1.1.1"
+license = "GPL-3.0-or-later"
+description = "Plugin to catch bad style specific to Django Projects."
+authors = ["Rocio Aramberri Schegel <rocio.aramberri@schegel.net>"]
+readme = "README.md"
+keywords = ["flake8", "django", "lint"]
+repository = "https://github.com/rocioar/flake8-django"
+classifiers=[
+    "Framework :: Flake8",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Quality Assurance",
+]
+
+[tool.poetry.plugins]
+[tool.poetry.plugins."flake8.extension"]
+DJ0 = "flake8_django:DjangoStyleChecker"
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+flake8 = "^3.8.4"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.2"
+pytest-cov = "^2.11.1"
