@@ -1,3 +1,4 @@
+from .decorator import DecoratorChecker
 from .model_content_order import ModelContentOrderChecker
 from .model_dunder_str import ModelDunderStrMissingChecker
 from .model_fields import ModelFieldChecker
@@ -6,6 +7,7 @@ from .render import RenderChecker
 from .model_meta import ModelMetaChecker
 
 __all__ = [
-    'ModelDunderStrMissingChecker', 'ModelFieldChecker', 'ModelFormChecker',
-    'RenderChecker', 'ModelMetaChecker', 'ModelContentOrderChecker'
+    'DecoratorChecker', 'ModelDunderStrMissingChecker', 'ModelFieldChecker',
+    'ModelFormChecker', 'RenderChecker', 'ModelMetaChecker',
+    'ModelContentOrderChecker'
 ]

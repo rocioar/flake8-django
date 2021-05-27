@@ -1,6 +1,7 @@
 import ast
 
 from flake8_django.checkers import (
+    DecoratorChecker,
     ModelContentOrderChecker,
     ModelDunderStrMissingChecker,
     ModelFieldChecker,
@@ -29,6 +30,9 @@ class DjangoStyleFinder(ast.NodeVisitor):
             ModelDunderStrMissingChecker(),
             ModelMetaChecker(),
             ModelContentOrderChecker(),
+        ],
+        'FunctionDef': [
+            DecoratorChecker(),
         ]
     }
 
@@ -48,6 +52,9 @@ class DjangoStyleFinder(ast.NodeVisitor):
 
     def visit_ClassDef(self, node):
         self.capture_issues_visitor('ClassDef', node)
+
+    def visit_FunctionDef(self, node):
+        self.capture_issues_visitor('FunctionDef', node)
 
 
 class DjangoStyleChecker(object):
