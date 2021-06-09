@@ -14,17 +14,15 @@ class DecoratorChecker(Checker):
         issues = []
         seen_receiver = False
         for pos, decorator in enumerate(node.decorator_list):
-            name = (
-                decorator.func.id if isinstance(decorator, ast.Call)
-                else decorator.id
-            )
+            receiver = (isinstance(decorator, ast.Call) and isinstance(decorator.func, ast.Name) and
+                        decorator.func.id == 'receiver')
 
-            if name == 'receiver' and pos > 0 and not seen_receiver:
+            if receiver and pos > 0 and not seen_receiver:
                 issues.append(DJ13(lineno=node.lineno, col=node.col_offset))
 
-            if name != 'receiver' and seen_receiver:
+            if not receiver and seen_receiver:
                 seen_receiver = False
-            elif name == 'receiver':
+            elif receiver:
                 seen_receiver = True
 
         return issues

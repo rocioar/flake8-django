@@ -1,6 +1,15 @@
-import pytest
-
 from .utils import run_check, error_code_in_result
+
+
+def test_receiver_continuous():
+    code = """\
+@receiver(post_save, sender=User)
+@receiver(post_delete, sender=User)
+def update_profile(sender, instance, **kwargs):
+    pass"""
+
+    result = run_check(code)
+    assert not error_code_in_result('DJ13', result)
 
 
 def test_receiver_non_continuous():
@@ -22,7 +31,7 @@ def create_profile(sender, instance, **kwargs):
     pass"""
 
     result = run_check(code)
-    assert not error_code_in_result('DJ03', result)
+    assert not error_code_in_result('DJ13', result)
 
 
 def test_wrong_order():
