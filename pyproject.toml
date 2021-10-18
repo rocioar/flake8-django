@@ -30,7 +30,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.dependencies]
 python = "^3.6"
-flake8 = "^3.8.4"
+flake8 = ">=3.8.4,<5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
