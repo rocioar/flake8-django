@@ -38,6 +38,7 @@ $ pytest --cov=.
 | [`DJ07`](https://github.com/rocioar/flake8-django/wiki/%5BDJ07%5D-Do-not-set-fields-to-'__all__'-on-ModelForm,-use-fields-instead) | Do not use `__all__` with ModelForm, use fields instead |
 | [`DJ08`](https://github.com/rocioar/flake8-django/wiki/%5BDJ08%5D-Model-does-not-define-__str__-method) | Model does not define `__str__` method |
 | [`DJ12`](https://github.com/rocioar/flake8-django/wiki/%5BDJ12%5D-Order-of-Model's-inner-classes,-methods,-and-fields-does-not-follow-the-Django-Style-Guide) | Order of Model's inner classes, methods, and fields does not follow the [Django Style Guide](https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/#model-style) |
+| [`DJ13`](https://github.com/rocioar/flake8-django/wiki/DJ13---@receiver-decorator-must-be-on-top-of-all-the-other-decorators) | @receiver decorator must be on top of all the other decorators |
 
 More details about each of the Rules can be found on the [wiki page](https://github.com/rocioar/flake8-django/wiki).
 

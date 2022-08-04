@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+1.1.4 (2022-08-04)
+------------------
+
+* Add new check DJ13, ensures the receiver decorator is at the top of the
+  decorators list. (@emorozov)
+
 1.1.3 (2022-08-04)
 ------------------
 
