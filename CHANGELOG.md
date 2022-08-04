@@ -1,8 +1,13 @@
 Change Log
 ==========
 
+1.1.3 (2022-08-04)
+------------------
+
+* Add compatibility with flake8 4.x (@terencehonles)
+
 1.1.2 (2021-05-11)
------------
+------------------
 
 **Bugfixes**
 
