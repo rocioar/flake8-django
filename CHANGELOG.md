@@ -5,6 +5,7 @@ Change Log
 ------------------
 
 * Add compatibility with flake8 5.x (@Secrus)
+* Drop support for Python versions below 3.7 (@Secrus)
 
 1.1.4 (2022-08-04)
 ------------------
