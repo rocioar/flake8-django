@@ -10,7 +10,7 @@ from flake8_django.checkers import (
     RenderChecker,
 )
 
-__version__ = '1.1.1'
+__version__ = '1.1.5'
 
 
 CHECKS_DISABLED_BY_DEFAULT = ['DJ10', 'DJ11']
