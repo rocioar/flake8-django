@@ -9,7 +9,7 @@ keywords = ["flake8", "django", "lint"]
 repository = "https://github.com/rocioar/flake8-django"
 classifiers=[
     "Framework :: Flake8",
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Quality Assurance",
 ]
