@@ -1,4 +1,4 @@
-import ast
+import astroid
 
 from flake8_django.checkers.base_model_checker import BaseModelChecker
 from flake8_django.checkers.issue import Issue
@@ -15,23 +15,28 @@ class DJ11(Issue):
 
 
 class ModelMetaChecker(BaseModelChecker):
-    model_name_lookup = 'Model'
+    model_name_lookups = ['.Model', 'django.db.models.base.Model']
 
     def checker_applies(self, node):
-        for base in node.bases:
-            if self.is_model_name_lookup(base) or self.is_models_name_lookup_attribute(base):
-                if not self.is_abstract_model(node):
-                    return True
-        return False
+        return self.is_model(node) and not self.is_abstract_model(node)
 
-    @staticmethod
-    def has_meta_class(element):
-        # for node in element.body[0].body:  # type: ignore
-        for node in element.body:  # type: ignore
-            if isinstance(node, ast.ClassDef):
-                if node.name == 'Meta':
-                    return node
+    def get_meta_class(self, node):
+        for child_node in node.body:
+            if isinstance(child_node, astroid.ClassDef):
+                if child_node.name == 'Meta':
+                    return child_node
         return
+
+    def _has_element(self, node, target_name: str):
+        for child_node in node.body:
+            if not isinstance(child_node, astroid.Assign):
+                continue
+            if not isinstance(child_node.targets[0], astroid.AssignName):
+                continue
+            attr = child_node.targets[0].name
+            if attr == target_name:
+                return True
+        return False
 
     def has_verbose_name(self, meta_class_node):
         return self._has_element(meta_class_node, 'verbose_name')
@@ -39,27 +44,11 @@ class ModelMetaChecker(BaseModelChecker):
     def has_verbose_name_plural(self, meta_class_node):
         return self._has_element(meta_class_node, 'verbose_name_plural')
 
-    @staticmethod
-    def _has_element(element, target_name):
-        for node in ast.iter_child_nodes(element):
-            if not isinstance(node, ast.Assign):
-                continue
-            if not isinstance(node.targets[0], ast.Name):
-                continue
-            attr = node.targets[0].id
-            if attr == target_name:
-                return True
-        return False
-
     def run(self, node):
-        """
-        Check a single model.
-        """
         if not self.checker_applies(node):
             return
 
-        meta_class_node = self.has_meta_class(node)
-
+        meta_class_node = self.get_meta_class(node)
         issues = []
         if not meta_class_node or not self.has_verbose_name(meta_class_node):
             issues.append(

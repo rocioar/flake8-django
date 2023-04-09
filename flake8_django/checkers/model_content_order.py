@@ -1,8 +1,9 @@
-from ast import Assign, ClassDef, FunctionDef
+import astroid
 from functools import partial
 
 from .base_model_checker import BaseModelChecker
 from .issue import Issue
+from .utils import node_is_subclass
 
 
 class DJ12(Issue):
@@ -22,31 +23,39 @@ class DJ12(Issue):
 
 def is_field_declaration(node):
     """
-    Verifies that the code is of the form: `field = models.CharField()`, matching by the `models` string.
+    Verify that node has Field value.
     """
     try:
-        return node.value.func.value.id == 'models'
+        for inferred_value in node.value.func.inferred():
+            if node_is_subclass(
+                inferred_value,
+                [".Field", "django.db.models.fields.Field"],
+            ):
+                return True
+        return False
     except AttributeError:
         return False
 
 
 def is_manager_declaration(node):
-    return isinstance(node, Assign) and getattr(node.targets[0], 'id', None) == 'objects'
+    return (
+        isinstance(node, astroid.Assign)
+        and getattr(node.targets[0], 'name', None) == 'objects'
+    )
 
 
 def is_meta_declaration(node):
-    return isinstance(node, ClassDef) and node.name == 'Meta'
+    return isinstance(node, astroid.ClassDef) and node.name == 'Meta'
 
 
 def is_method(node, method_name=None):
     if method_name is None:
-        return isinstance(node, FunctionDef)
-    return isinstance(node, FunctionDef) and node.name == method_name
+        return isinstance(node, astroid.FunctionDef)
+    return isinstance(node, astroid.FunctionDef) and node.name == method_name
 
 
 class ModelContentOrderChecker(BaseModelChecker):
-    model_name_lookup = 'Model'
-
+    model_name_lookups = ['.Model', 'django.db.models.base.Model']
     FIELD_DECLARATION = 'field declaration'
     MANAGER_DECLARATION = 'manager declaration'
     META_CLASS = 'Meta class'
@@ -75,10 +84,7 @@ class ModelContentOrderChecker(BaseModelChecker):
     ]
 
     def checker_applies(self, node):
-        for base in node.bases:
-            if self.is_model_name_lookup(base) or self.is_models_name_lookup_attribute(base):
-                return True
-        return False
+        return self.is_model(node)
 
     def run(self, node):
         if not self.checker_applies(node):
