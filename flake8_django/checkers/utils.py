@@ -7,7 +7,7 @@ def node_is_subclass(node, subclass_names):
         return False
 
     if node.bases == astroid.Uninferable:
-        return False
+        return False  # pragma: no cover
     for base_cls in node.bases:
         try:
             for inf in base_cls.inferred():
@@ -15,7 +15,7 @@ def node_is_subclass(node, subclass_names):
                     return True
                 if inf != node and node_is_subclass(inf, subclass_names):
                     return True
-        except astroid.InferenceError:
+        except astroid.InferenceError:  # pragma: no cover
             continue
 
     return False

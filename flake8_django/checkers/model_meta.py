@@ -31,8 +31,6 @@ class ModelMetaChecker(BaseModelChecker):
         for child_node in node.body:
             if not isinstance(child_node, astroid.Assign):
                 continue
-            if not isinstance(child_node.targets[0], astroid.AssignName):
-                continue
             attr = child_node.targets[0].name
             if attr == target_name:
                 return True

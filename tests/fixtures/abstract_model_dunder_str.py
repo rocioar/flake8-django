@@ -1,5 +1,5 @@
-from django import models
-from django.models import Model
+from django.db import models
+from django.db.models import Model
 
 
 class AbstractTestModel1(Model):

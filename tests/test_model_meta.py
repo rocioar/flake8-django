@@ -20,3 +20,10 @@ def test_model_inherited_from_abstract():
     result = run_check(code)
     assert error_code_in_result('DJ10', result)
     assert error_code_in_result('DJ11', result)
+
+
+def test_model_without_meta():
+    code = load_fixture_file('model_without_meta.py')
+    result = run_check(code)
+    assert error_code_in_result('DJ10', result)
+    assert error_code_in_result('DJ11', result)

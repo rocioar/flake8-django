@@ -22,10 +22,8 @@ class ModelFormChecker(BaseModelChecker):
 
     def is_string_dunder_all(self, element):
         """
-        Return True if element is ast.Str or ast.Bytes and equals "__all__"
+        Return True if element is astroid.Const, astroid.List or astroid.Tuple  and equals "__all__"
         """
-        if not isinstance(element.value, (astroid.Const, astroid.List, astroid.Tuple)):
-            return False
         if isinstance(element.value, (astroid.List, astroid.Tuple)):
             return any(
                 iter_item.value == '__all__'

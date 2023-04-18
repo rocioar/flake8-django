@@ -1,7 +1,7 @@
-from django import models
+from django.forms import ModelForm
 
 
-class User(models.ModelForm):
+class User(ModelForm):
     name = models.CharField(max_length=255)
     email = models.EmailField()
 

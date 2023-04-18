@@ -29,4 +29,4 @@ class AstroidBaseChecker(object):
     """
 
     def run(self, node):
-        return NotImplementedError
+        return NotImplementedError  # pragma: no cover

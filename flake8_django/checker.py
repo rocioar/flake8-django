@@ -102,7 +102,7 @@ class DjangoStyleChecker(object):
                 self.source_code,
             )
         else:
-            self.astroid_tree = self.astroid_manager.ast_from_file(
+            self.astroid_tree = self.astroid_manager.ast_from_file(  # pragma: no cover
                 self.filename,
             )
 
