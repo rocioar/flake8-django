@@ -13,7 +13,7 @@ from flake8_django.checkers import (
 __version__ = '1.1.5'
 
 
-CHECKS_DISABLED_BY_DEFAULT = ['DJ10', 'DJ11']
+CHECKS_DISABLED_BY_DEFAULT = ['DJ10', 'DJ11', 'DJ14']
 
 
 class DjangoStyleFinder(ast.NodeVisitor):
