@@ -13,6 +13,10 @@ class DJ11(Issue):
     code = 'DJ11'
     description = 'Model should define verbose_name_plural in its Meta inner class'
 
+class DJ14(Issue):
+    code = 'DJ14'
+    description = 'Model should define db_table in its Meta inner class'
+
 
 class ModelMetaChecker(BaseModelChecker):
     model_name_lookup = 'Model'
@@ -38,6 +42,9 @@ class ModelMetaChecker(BaseModelChecker):
 
     def has_verbose_name_plural(self, meta_class_node):
         return self._has_element(meta_class_node, 'verbose_name_plural')
+
+    def has_db_table(self, meta_class_node):
+        return self._has_element(meta_class_node, 'db_table')
 
     @staticmethod
     def _has_element(element, target_name):
@@ -72,6 +79,14 @@ class ModelMetaChecker(BaseModelChecker):
         if not meta_class_node or not self.has_verbose_name_plural(meta_class_node):
             issues.append(
                 DJ11(
+                    lineno=node.lineno,
+                    col=node.col_offset,
+                )
+            )
+        
+        if not meta_class_node or not self.has_db_table(meta_class_node):
+            issues.append(
+                DJ14(
                     lineno=node.lineno,
                     col=node.col_offset,
                 )
