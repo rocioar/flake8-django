@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+1.3 (2023-05-22)
+----------------
+* Add model checkers based on astroid nodes. Fixes violations missed
+  when using subclasses (@yalef)
+
+
 1.2 (2023-04-15)
 ----------------
 * Add support for flake8 6 (@JanMalte)
