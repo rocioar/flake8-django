@@ -6,7 +6,7 @@ from flake8_django import DjangoStyleChecker
 
 def run_check(code):
     tree = ast.parse(code)
-    checker = DjangoStyleChecker(tree, None)
+    checker = DjangoStyleChecker(tree, None, code)
     return list(checker.run())
 
 

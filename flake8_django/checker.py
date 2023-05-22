@@ -1,14 +1,13 @@
 import ast
+import os
+import sys
 
-from flake8_django.checkers import (
-    DecoratorChecker,
-    ModelContentOrderChecker,
-    ModelDunderStrMissingChecker,
-    ModelFieldChecker,
-    ModelFormChecker,
-    ModelMetaChecker,
-    RenderChecker,
-)
+import astroid
+
+from flake8_django.checkers import (DecoratorChecker, ModelContentOrderChecker,
+                                    ModelDunderStrMissingChecker,
+                                    ModelFieldChecker, ModelFormChecker,
+                                    ModelMetaChecker, RenderChecker)
 
 __version__ = '1.1.5'
 
@@ -24,12 +23,6 @@ class DjangoStyleFinder(ast.NodeVisitor):
         'Call': [
             ModelFieldChecker(),
             RenderChecker(),
-        ],
-        'ClassDef': [
-            ModelFormChecker(),
-            ModelDunderStrMissingChecker(),
-            ModelMetaChecker(),
-            ModelContentOrderChecker(),
         ],
         'FunctionDef': [
             DecoratorChecker(),
@@ -50,11 +43,42 @@ class DjangoStyleFinder(ast.NodeVisitor):
     def visit_Call(self, node):
         self.capture_issues_visitor('Call', node)
 
-    def visit_ClassDef(self, node):
-        self.capture_issues_visitor('ClassDef', node)
-
     def visit_FunctionDef(self, node):
         self.capture_issues_visitor('FunctionDef', node)
+
+
+class AstroidTreeVisitor:
+    """
+    Go through astroid tree and return issues by specified checkers.
+    """
+    checkers = {
+        "ClassDef": (
+            ModelMetaChecker(),
+            ModelFormChecker(),
+            ModelDunderStrMissingChecker(),
+            ModelContentOrderChecker(),
+        )
+    }
+
+    def __init__(self):
+        self.issues = []
+
+    def visit(self, tree):
+        for node in tree.body:
+            self.issues.extend(
+                self.run_checkers(
+                    node=node,
+                    checker_type=node.__class__.__name__,
+                ),
+            )
+
+    def run_checkers(self, node, checker_type):
+        issues = []
+        for checker in self.checkers.get(checker_type, []):
+            checker_issues = checker.run(node)
+            if checker_issues:
+                issues.extend(checker_issues)
+        return issues
 
 
 class DjangoStyleChecker(object):
@@ -63,10 +87,24 @@ class DjangoStyleChecker(object):
     """
     name = 'flake8-django'
     version = __version__
+    astroid_manager = astroid.MANAGER
 
-    def __init__(self, tree, filename):
+    def __init__(self, tree, filename, lines=[]):
         self.tree = tree
         self.filename = filename
+        self.source_code = ''.join(lines)
+        self.build_astroid_tree()
+
+    def build_astroid_tree(self):
+        sys.path.append(os.getcwd())
+        if not self.filename:
+            self.astroid_tree = self.astroid_manager.ast_from_string(
+                self.source_code,
+            )
+        else:
+            self.astroid_tree = self.astroid_manager.ast_from_file(  # pragma: no cover
+                self.filename,
+            )
 
     @staticmethod
     def add_options(optmanager):
@@ -77,5 +115,8 @@ class DjangoStyleChecker(object):
         parser = DjangoStyleFinder()
         parser.visit(self.tree)
 
-        for issue in parser.issues:
+        astroid_parser = AstroidTreeVisitor()
+        astroid_parser.visit(self.astroid_tree)
+
+        for issue in parser.issues + astroid_parser.issues:
             yield issue.lineno, issue.col, issue.message, DjangoStyleChecker

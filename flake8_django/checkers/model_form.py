@@ -1,4 +1,4 @@
-import ast
+import astroid
 
 from .base_model_checker import BaseModelChecker
 from .issue import Issue
@@ -15,26 +15,25 @@ class DJ07(Issue):
 
 
 class ModelFormChecker(BaseModelChecker):
-    model_name_lookup = 'ModelForm'
+    model_name_lookups = ['.ModelForm', 'django.forms.models.ModelForm']
 
     def checker_applies(self, node):
-        for base in node.bases:
-            is_model_form = self.is_model_name_lookup(base) or self.is_models_name_lookup_attribute(base)
-            if is_model_form:
-                return True
-        return False
+        return self.is_model(node)
 
     def is_string_dunder_all(self, element):
         """
-        Return True if element is ast.Str or ast.Bytes and equals "__all__"
+        Return True if element is astroid.Const, astroid.List or astroid.Tuple  and equals "__all__"
         """
-        if not isinstance(element.value, (ast.Str, ast.Bytes)):
-            return False
-
-        node_value = element.value.s
-        if isinstance(node_value, bytes):
-            node_value = node_value.decode()
-        return node_value == '__all__'
+        if isinstance(element.value, (astroid.List, astroid.Tuple)):
+            return any(
+                iter_item.value == '__all__'
+                for iter_item in element.value.itered()
+            )
+        else:
+            node_value = element.value.value
+            if isinstance(node_value, bytes):
+                node_value = node_value.decode()
+            return node_value == '__all__'
 
     def run(self, node):
         """
@@ -45,20 +44,20 @@ class ModelFormChecker(BaseModelChecker):
 
         issues = []
         for body in node.body:
-            if not isinstance(body, ast.ClassDef):
+            if not isinstance(body, astroid.ClassDef):
                 continue
             for element in body.body:
-                if not isinstance(element, ast.Assign):
+                if not isinstance(element, astroid.Assign):
                     continue
                 for target in element.targets:
-                    if target.id == 'fields' and self.is_string_dunder_all(element):
+                    if target.name == 'fields' and self.is_string_dunder_all(element):
                         issues.append(
                             DJ07(
                                 lineno=node.lineno,
                                 col=node.col_offset,
                             )
                         )
-                    elif target.id == 'exclude':
+                    elif target.name == 'exclude':
                         issues.append(
                             DJ06(
                                 lineno=node.lineno,

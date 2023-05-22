@@ -21,3 +21,12 @@ class Checker(object):
         Method that runs the checks and returns the issues.
         """
         return NotImplementedError  # pragma: no cover
+
+
+class AstroidBaseChecker(object):
+    """
+    Abstract class for astroid nodes checkers.
+    """
+
+    def run(self, node):
+        return NotImplementedError  # pragma: no cover

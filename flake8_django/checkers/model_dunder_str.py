@@ -1,4 +1,4 @@
-import ast
+import astroid
 
 from .base_model_checker import BaseModelChecker
 from .issue import Issue
@@ -10,18 +10,14 @@ class DJ08(Issue):
 
 
 class ModelDunderStrMissingChecker(BaseModelChecker):
-    model_name_lookup = 'Model'
+    model_name_lookups = ['.Model', 'django.db.models.base.Model']
 
     def checker_applies(self, node):
-        for base in node.bases:
-            if self.is_model_name_lookup(base) or self.is_models_name_lookup_attribute(base):
-                if not self.is_abstract_model(node):
-                    return True
-        return False
+        return self.is_model(node) and not self.is_abstract_model(node)
 
     def is_dunder_str_method(self, element):
         return (
-            isinstance(element, ast.FunctionDef) and
+            isinstance(element, astroid.FunctionDef) and
             element.name == '__str__'
         )
 
