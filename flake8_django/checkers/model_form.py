@@ -24,13 +24,19 @@ class ModelFormChecker(BaseModelChecker):
         """
         Return True if element is astroid.Const, astroid.List or astroid.Tuple  and equals "__all__"
         """
-        if isinstance(element.value, (astroid.List, astroid.Tuple)):
+        assign_value = element.value
+        if not isinstance(
+            assign_value,
+            (astroid.List, astroid.Tuple, astroid.Const),
+        ):
+            return False
+        if isinstance(assign_value, (astroid.List, astroid.Tuple)):
             return any(
                 iter_item.value == '__all__'
-                for iter_item in element.value.itered()
+                for iter_item in assign_value.itered()
             )
         else:
-            node_value = element.value.value
+            node_value = assign_value.value
             if isinstance(node_value, bytes):
                 node_value = node_value.decode()
             return node_value == '__all__'
