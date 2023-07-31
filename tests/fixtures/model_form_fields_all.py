@@ -26,4 +26,3 @@ class User5(ModelForm):
     class Meta:
         model = User2
         fields = ['__all__']
-

@@ -102,3 +102,27 @@ class PerfectlyFine(models.Model):
     @property
     def random_property(self):
         return '%s' % self
+
+
+class CustomManager(models.Manager):
+    def manager_only_method(self):
+        return
+
+
+class CustomQuerySet(models.QuerySet):
+    def manager_and_queryset_method(self):
+        return
+
+
+class ModelWithCustomManager(models.Model):
+    """
+    Model with custom manager which can't be inferred correctly.
+    """
+    first_name = models.CharField(max_length=32)
+    objects = CustomManager.from_queryset(CustomQuerySet)()
+    class Meta:
+        verbose_name = 'test'
+        verbose_name_plural = 'tests'
+
+    def __str__(self):
+        return 'Perfectly fine!'

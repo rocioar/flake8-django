@@ -11,3 +11,8 @@ class User(ModelForm):
 
         def test_method_doesnt_error(self):
             pass
+
+
+class ExtendedUser(User):
+    class Meta(User.Meta):
+        fields = User.Meta.fields + ('email',)

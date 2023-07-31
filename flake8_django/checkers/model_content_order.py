@@ -1,4 +1,5 @@
 import astroid
+from astroid.exceptions import InferenceError
 from functools import partial
 
 from .base_model_checker import BaseModelChecker
@@ -33,7 +34,7 @@ def is_field_declaration(node):
             ):
                 return True
         return False
-    except AttributeError:
+    except (AttributeError, InferenceError):
         return False
 
 
