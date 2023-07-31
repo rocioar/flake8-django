@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+
+1.4 (2023-07-31)
+----------------
+* Add exception handling for model field checking (@yalef)
+
 1.3 (2023-05-22)
 ----------------
 * Add model checkers based on astroid nodes. Fixes violations missed
