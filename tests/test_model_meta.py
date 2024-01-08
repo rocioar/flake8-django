@@ -27,3 +27,19 @@ def test_model_without_meta():
     result = run_check(code)
     assert error_code_in_result('DJ10', result)
     assert error_code_in_result('DJ11', result)
+
+
+def test_model_inherited_from_abstract_with_verbose_name():
+    code = load_fixture_file('model_inherited_from_abstract_model_with_verbose_name.py')
+    result = run_check(code)
+
+    assert not error_code_in_result('DJ10', result)
+    assert not error_code_in_result('DJ11', result)
+
+
+def test_model_inherited_from_abstract_and_meta_with_verbose_name():
+    code = load_fixture_file('model_inherited_from_abstract_model_with_verbose_name_meta.py')
+    result = run_check(code)
+
+    assert not error_code_in_result('DJ10', result)
+    assert not error_code_in_result('DJ11', result)

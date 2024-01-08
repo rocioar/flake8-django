@@ -20,7 +20,7 @@ class ModelMetaChecker(BaseModelChecker):
     def checker_applies(self, node):
         return self.is_model(node) and not self.is_abstract_model(node)
 
-    def get_meta_class(self, node):
+    def get_meta_class(self, node: astroid.ClassDef):
         for child_node in node.body:
             if isinstance(child_node, astroid.ClassDef):
                 if child_node.name == 'Meta':
@@ -35,12 +35,26 @@ class ModelMetaChecker(BaseModelChecker):
             if attr == target_name:
                 return True
         return False
+    
+    def _has_abstract_model_ancestor_element(self, node, target_name: str) -> bool:
+        for ancestor_node in node.local_attr_ancestors('Meta'):
+            meta_class = self.get_meta_class(ancestor_node)
+            if meta_class and self._has_element(meta_class, target_name):
+                return True
+                
+        return False
 
     def has_verbose_name(self, meta_class_node):
-        return self._has_element(meta_class_node, 'verbose_name')
+        return (
+            self._has_element(meta_class_node, 'verbose_name') 
+            or self._has_abstract_model_ancestor_element(meta_class_node.parent, 'verbose_name')
+        )
 
     def has_verbose_name_plural(self, meta_class_node):
-        return self._has_element(meta_class_node, 'verbose_name_plural')
+        return (
+            self._has_element(meta_class_node, 'verbose_name_plural')
+            or self._has_abstract_model_ancestor_element(meta_class_node.parent, 'verbose_name_plural')
+        )
 
     def run(self, node):
         if not self.checker_applies(node):
